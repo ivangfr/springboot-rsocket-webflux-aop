@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+
+  mongodb:
+    image: mongo:4.2.7
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: "echo 'db.stats().ok' | mongo localhost:27017/moviedb --quiet"
+      start_period: 30s

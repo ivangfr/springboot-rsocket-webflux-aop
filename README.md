@@ -12,22 +12,42 @@
   ./mvnw clean spring-boot:run --projects movie-client
   ```
   
-## Application's Port
+## Application's URL
 
-| Application  | Netty | Netty RSocket |
-| ------------ | ----: | ------------: |
-| movie-server | 8081  | 9081          |
-| movie-client | 8082  | 9082          |
+| Application  | Type    | URL                   |
+| ------------ | ------: | --------------------: |
+| movie-server | RSocket | tcp://localhost:7000  |
+| movie-client | REST    | http://localhost:8080 |
 
-## Test
+## movie-client Endpoint Call Samples
 
-- In a terminal, make the following `curl` request
+- **create-movie**
   ```
-  curl -i localhost:8082/echo/ola
+  curl -i -X POST localhost:8080/movies -H 'Content-Type: application/json' -d '{"imdb": "aaa", "title": "movie aaa"}'
   ```
-  
-  It should return
+
+- **get-movies**
   ```
-  HTTP/1.1 200 OK
-  OLA
+  curl -i localhost:8080/movies
   ```
+
+- **get-movie**
+  ```
+  curl -i localhost:8080/movies/abc
+  ```
+
+- **delete-movie**
+  ```
+  curl -i -X DELETE localhost:8080/movies/abc
+  ```
+
+## Useful Commands & Links
+
+- **MongoDB**
+
+  Find all movies
+  ```
+  docker exec -it mongodb mongo
+  db.movies.find()
+  ```
+  > Type `exit` to get out of `MongoDB` shell

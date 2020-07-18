@@ -1,17 +1,12 @@
 spring:
   application:
     name: movie-client
-  rsocket:
-    server:
-      port: 9082
-
-server:
-  port: 8082
 
 app:
   movie-server:
     rsocket:
-      port: 9081
+      host: localhost
+      port: 7000
 
 management:
   endpoints:

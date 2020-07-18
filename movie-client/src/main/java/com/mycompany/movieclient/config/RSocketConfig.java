@@ -8,12 +8,15 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 @Configuration
 public class RSocketConfig {
 
+    @Value("${app.movie-server.rsocket.host}")
+    private String movieServerHost;
+
     @Value("${app.movie-server.rsocket.port}")
     private Integer movieServerPort;
 
     @Bean
     public RSocketRequester rSocketRequester(RSocketRequester.Builder builder) {
-        return builder.connectTcp("localhost", movieServerPort).block();
+        return builder.connectTcp(movieServerHost, movieServerPort).block();
     }
 
 }
