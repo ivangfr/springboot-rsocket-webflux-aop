@@ -1,1 +1,17 @@
+spring:
+  application:
+    name: movie-server
+  rsocket:
+    server:
+      port: 9081
 
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure.include: beans, env, health, info, metrics, mappings
+  endpoint:
+    health:
+      show-details: always
