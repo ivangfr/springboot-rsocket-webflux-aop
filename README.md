@@ -19,13 +19,13 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   | Transport        | http                                    | tcp                              |
   | Port             | 8080                                    | 7000                             |
   |                  |                                         |                                  |
-  | Request-Response | `GET /api/movies`                       | `get-movies`                     |
-  |                  | `GET /api/movies/{imdb}`                | `get-movie -d "imdb"`            |
-  |                  | `POST /api/movies -d {"imdb", "title"}` | `add-movie -d {"imdb", "title"}` |
-  |                  | `DELETE /api/movies/{imdb}`             | `delete-movie -d "imdb"`         |
+  | Request Response | `GET /api/movies`                       | `get.movies`                     |
+  |                  | `GET /api/movies/{imdb}`                | `get.movie -d "imdb"`            |
+  |                  | `POST /api/movies -d {"imdb", "title"}` | `add.movie -d {"imdb", "title"}` |
+  |                  | `DELETE /api/movies/{imdb}`             | `delete.movie -d "imdb"`         |
   |                  |                                         |                                  |
-  | Fire-And-Forget  | `PATCH /api/movies/{imdb}/like`         | `like-movie -d "imdb"`           |
-  |                  | `PATCH /api/movies/{imdb}/dislike`      | `dislike-movie -d "imdb"`        |
+  | Fire And Forget  | `PATCH /api/movies/{imdb}/like`         | `like.movie -d "imdb"`           |
+  |                  | `PATCH /api/movies/{imdb}/dislike`      | `dislike.movie -d "imdb"`        |
 
 - **movie-client**
 
@@ -89,7 +89,3 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   db.movies.find()
   ```
   > Type `exit` to get out of `MongoDB` shell
-
-## TODO
-
-- implement websocket that outputs all movies added/deleted in realtime;

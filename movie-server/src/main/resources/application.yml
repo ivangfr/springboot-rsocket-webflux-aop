@@ -3,6 +3,7 @@ spring:
     name: movie-server
   rsocket:
     server:
+      transport: tcp
       port: 7000
 
 management:

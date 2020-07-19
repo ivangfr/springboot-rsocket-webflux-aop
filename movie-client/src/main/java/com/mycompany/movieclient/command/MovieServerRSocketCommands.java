@@ -23,7 +23,7 @@ public class MovieServerRSocketCommands {
 
     @ShellMethod(key = "get-movies-rsocket", value = "Get all movies using RSocket")
     public List<String> getMoviesRSocket() {
-        return rSocketRequester.route("get-movies")
+        return rSocketRequester.route("get.movies")
                 .retrieveFlux(MovieDto.class)
                 .map(gson::toJson)
                 .collectList()
@@ -32,7 +32,7 @@ public class MovieServerRSocketCommands {
 
     @ShellMethod(key = "get-movie-rsocket", value = "Get movie by imdb using RSocket")
     public String getMovieRSocket(String imdb) {
-        return rSocketRequester.route("get-movie")
+        return rSocketRequester.route("get.movie")
                 .data(imdb)
                 .retrieveMono(MovieDto.class)
                 .map(gson::toJson)
@@ -43,7 +43,7 @@ public class MovieServerRSocketCommands {
     @ShellMethod(key = "add-movie-rsocket", value = "Add movie using RSocket")
     public String addMovieRSocket(String imdb, String title) {
         AddMovieRequest addMovieRequest = new AddMovieRequest(imdb, title);
-        return rSocketRequester.route("add-movie")
+        return rSocketRequester.route("add.movie")
                 .data(addMovieRequest)
                 .retrieveMono(MovieDto.class)
                 .map(gson::toJson)
@@ -52,7 +52,7 @@ public class MovieServerRSocketCommands {
 
     @ShellMethod(key = "delete-movie-rsocket", value = "Delete movie using RSocket")
     public String deleteMovieRSocket(String imdb) {
-        return rSocketRequester.route("delete-movie")
+        return rSocketRequester.route("delete.movie")
                 .data(imdb)
                 .retrieveMono(String.class)
                 .map(gson::toJson)
@@ -62,7 +62,7 @@ public class MovieServerRSocketCommands {
 
     @ShellMethod(key = "like-movie-rsocket", value = "Like movie using RSocket")
     public String likeMovieRSocket(String imdb) {
-        rSocketRequester.route("like-movie")
+        rSocketRequester.route("like.movie")
                 .data(imdb)
                 .send()
                 .block();
@@ -71,7 +71,7 @@ public class MovieServerRSocketCommands {
 
     @ShellMethod(key = "dislike-movie-rsocket", value = "Dislike movie using RSocket")
     public String dislikeMovieRSocket(String imdb) {
-        rSocketRequester.route("dislike-movie")
+        rSocketRequester.route("dislike.movie")
                 .data(imdb)
                 .send()
                 .block();
