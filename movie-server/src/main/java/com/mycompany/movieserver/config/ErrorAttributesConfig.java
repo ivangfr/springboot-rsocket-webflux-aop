@@ -1,4 +1,4 @@
-package com.mycompany.movieclient.config;
+package com.mycompany.movieserver.config;
 
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.error.ErrorAttributeOptions.Include;

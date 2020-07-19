@@ -10,7 +10,7 @@ public interface MovieService {
 
     Flux<Movie> getMovies();
 
-    Mono<Movie> createMovie(Movie movie);
+    Mono<Movie> addMovie(Movie movie);
 
     Mono<String> deleteMovie(Movie movie);
 

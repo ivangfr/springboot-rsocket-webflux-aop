@@ -1,4 +1,4 @@
-package com.mycompany.movieclient.rest.dto;
+package com.mycompany.movieclient.dto;
 
 import lombok.Data;
 

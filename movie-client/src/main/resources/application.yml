@@ -1,17 +1,16 @@
 spring:
   application:
     name: movie-client
+  main:
+    web-application-type: none
 
-app:
-  movie-server:
-    rsocket:
-      host: localhost
-      port: 7000
+movie-server:
+  host: localhost
+  rest:
+    port: 8080
+  rsocket:
+    port: 7000
 
-management:
-  endpoints:
-    web:
-      exposure.include: beans, env, health, info, metrics, mappings
-  endpoint:
-    health:
-      show-details: always
+logging:
+  level:
+    root: error

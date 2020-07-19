@@ -1,0 +1,70 @@
+start-chronometer
+
+add-movie-rest --imdb 001 --title "movie 001"
+add-movie-rest --imdb 002 --title "movie 002"
+add-movie-rest --imdb 003 --title "movie 003"
+add-movie-rest --imdb 004 --title "movie 004"
+add-movie-rest --imdb 005 --title "movie 005"
+add-movie-rest --imdb 006 --title "movie 006"
+add-movie-rest --imdb 007 --title "movie 007"
+add-movie-rest --imdb 008 --title "movie 008"
+add-movie-rest --imdb 009 --title "movie 009"
+add-movie-rest --imdb 010 --title "movie 010"
+add-movie-rest --imdb 011 --title "movie 011"
+add-movie-rest --imdb 012 --title "movie 012"
+add-movie-rest --imdb 013 --title "movie 013"
+add-movie-rest --imdb 014 --title "movie 014"
+add-movie-rest --imdb 015 --title "movie 015"
+add-movie-rest --imdb 016 --title "movie 016"
+add-movie-rest --imdb 017 --title "movie 017"
+add-movie-rest --imdb 018 --title "movie 018"
+add-movie-rest --imdb 019 --title "movie 019"
+add-movie-rest --imdb 020 --title "movie 020"
+
+get-movies-rest
+
+get-movie-rest --imdb 001
+get-movie-rest --imdb 002
+get-movie-rest --imdb 003
+get-movie-rest --imdb 004
+get-movie-rest --imdb 005
+get-movie-rest --imdb 006
+get-movie-rest --imdb 007
+get-movie-rest --imdb 008
+get-movie-rest --imdb 009
+get-movie-rest --imdb 010
+get-movie-rest --imdb 011
+get-movie-rest --imdb 012
+get-movie-rest --imdb 013
+get-movie-rest --imdb 014
+get-movie-rest --imdb 015
+get-movie-rest --imdb 016
+get-movie-rest --imdb 017
+get-movie-rest --imdb 018
+get-movie-rest --imdb 019
+get-movie-rest --imdb 020
+
+delete-movie-rest --imdb 001
+delete-movie-rest --imdb 002
+delete-movie-rest --imdb 003
+delete-movie-rest --imdb 004
+delete-movie-rest --imdb 005
+delete-movie-rest --imdb 006
+delete-movie-rest --imdb 007
+delete-movie-rest --imdb 008
+delete-movie-rest --imdb 009
+delete-movie-rest --imdb 010
+delete-movie-rest --imdb 011
+delete-movie-rest --imdb 012
+delete-movie-rest --imdb 013
+delete-movie-rest --imdb 014
+delete-movie-rest --imdb 015
+delete-movie-rest --imdb 016
+delete-movie-rest --imdb 017
+delete-movie-rest --imdb 018
+delete-movie-rest --imdb 019
+delete-movie-rest --imdb 020
+
+get-movies-rest
+
+stop-chronometer

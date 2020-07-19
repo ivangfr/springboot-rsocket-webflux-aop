@@ -24,7 +24,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Mono<Movie> createMovie(Movie movie) {
+    public Mono<Movie> addMovie(Movie movie) {
         return movieRepository.save(movie);
     }
 
