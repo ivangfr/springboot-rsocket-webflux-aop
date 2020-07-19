@@ -10,5 +10,7 @@ public class MovieDto {
     private String imdb;
     private String title;
     private LocalDateTime lastModifiedDate;
+    private Integer likes;
+    private Integer dislikes;
 
 }

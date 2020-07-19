@@ -14,6 +14,8 @@ public class Movie {
     @Id
     private String imdb;
     private String title;
+    private Integer likes = 0;
+    private Integer dislikes = 0;
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;

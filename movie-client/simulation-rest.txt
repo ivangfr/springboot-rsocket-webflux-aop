@@ -44,6 +44,50 @@ get-movie-rest --imdb 018
 get-movie-rest --imdb 019
 get-movie-rest --imdb 020
 
+like-movie-rest --imdb 001
+like-movie-rest --imdb 002
+like-movie-rest --imdb 003
+like-movie-rest --imdb 004
+like-movie-rest --imdb 005
+like-movie-rest --imdb 006
+like-movie-rest --imdb 007
+like-movie-rest --imdb 008
+like-movie-rest --imdb 009
+like-movie-rest --imdb 010
+like-movie-rest --imdb 011
+like-movie-rest --imdb 012
+like-movie-rest --imdb 013
+like-movie-rest --imdb 014
+like-movie-rest --imdb 015
+like-movie-rest --imdb 016
+like-movie-rest --imdb 017
+like-movie-rest --imdb 018
+like-movie-rest --imdb 019
+like-movie-rest --imdb 020
+get-movies-rest
+
+dislike-movie-rest --imdb 001
+dislike-movie-rest --imdb 002
+dislike-movie-rest --imdb 003
+dislike-movie-rest --imdb 004
+dislike-movie-rest --imdb 005
+dislike-movie-rest --imdb 006
+dislike-movie-rest --imdb 007
+dislike-movie-rest --imdb 008
+dislike-movie-rest --imdb 009
+dislike-movie-rest --imdb 010
+dislike-movie-rest --imdb 011
+dislike-movie-rest --imdb 012
+dislike-movie-rest --imdb 013
+dislike-movie-rest --imdb 014
+dislike-movie-rest --imdb 015
+dislike-movie-rest --imdb 016
+dislike-movie-rest --imdb 017
+dislike-movie-rest --imdb 018
+dislike-movie-rest --imdb 019
+dislike-movie-rest --imdb 020
+get-movies-rest
+
 delete-movie-rest --imdb 001
 delete-movie-rest --imdb 002
 delete-movie-rest --imdb 003

@@ -14,14 +14,18 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   
   There are two ways a movie can be added/retrieved/deleted using (shown in the table below)
   
-  |              | REST API                                | RSocket                          |
-  | ------------ | --------------------------------------- | -------------------------------- |
-  | Transport    | http                                    | tcp                              |
-  | Port         | 8080                                    | 7000                             |
-  | Endpoints /  | `GET /api/movies`                       | `get-movies`                     |
-  | Routes       | `GET /api/movies/{imdb}`                | `get-movie -d {"imdb"}`          |
-  |              | `POST /api/movies -d {"imdb", "title"}` | `add-movie -d {"imdb", "title"}` |
-  |              | `DELETE /api/movies/{imdb}`             | `delete-movie -d {"imdb"}`       |
+  |                  | REST API                                | RSocket                          |
+  | ---------------- | --------------------------------------- | -------------------------------- |
+  | Transport        | http                                    | tcp                              |
+  | Port             | 8080                                    | 7000                             |
+  |                  |                                         |                                  |
+  | Request-Response | `GET /api/movies`                       | `get-movies`                     |
+  |                  | `GET /api/movies/{imdb}`                | `get-movie -d "imdb"`            |
+  |                  | `POST /api/movies -d {"imdb", "title"}` | `add-movie -d {"imdb", "title"}` |
+  |                  | `DELETE /api/movies/{imdb}`             | `delete-movie -d "imdb"`         |
+  |                  |                                         |                                  |
+  | Fire-And-Forget  | `PATCH /api/movies/{imdb}/like`         | `like-movie -d "imdb"`           |
+  |                  | `PATCH /api/movies/{imdb}/dislike`      | `dislike-movie -d "imdb"`        |
 
 - **movie-client**
 
@@ -88,5 +92,4 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
 ## TODO
 
-- implement fire-forget when customer sends a score from 0 to 10 to a movie;
 - implement websocket that outputs all movies added/deleted in realtime;

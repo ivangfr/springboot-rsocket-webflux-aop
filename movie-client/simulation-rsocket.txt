@@ -44,6 +44,50 @@ get-movie-rsocket --imdb 018
 get-movie-rsocket --imdb 019
 get-movie-rsocket --imdb 020
 
+like-movie-rsocket --imdb 001
+like-movie-rsocket --imdb 002
+like-movie-rsocket --imdb 003
+like-movie-rsocket --imdb 004
+like-movie-rsocket --imdb 005
+like-movie-rsocket --imdb 006
+like-movie-rsocket --imdb 007
+like-movie-rsocket --imdb 008
+like-movie-rsocket --imdb 009
+like-movie-rsocket --imdb 010
+like-movie-rsocket --imdb 011
+like-movie-rsocket --imdb 012
+like-movie-rsocket --imdb 013
+like-movie-rsocket --imdb 014
+like-movie-rsocket --imdb 015
+like-movie-rsocket --imdb 016
+like-movie-rsocket --imdb 017
+like-movie-rsocket --imdb 018
+like-movie-rsocket --imdb 019
+like-movie-rsocket --imdb 020
+get-movies-rsocket
+
+dislike-movie-rsocket --imdb 001
+dislike-movie-rsocket --imdb 002
+dislike-movie-rsocket --imdb 003
+dislike-movie-rsocket --imdb 004
+dislike-movie-rsocket --imdb 005
+dislike-movie-rsocket --imdb 006
+dislike-movie-rsocket --imdb 007
+dislike-movie-rsocket --imdb 008
+dislike-movie-rsocket --imdb 009
+dislike-movie-rsocket --imdb 010
+dislike-movie-rsocket --imdb 011
+dislike-movie-rsocket --imdb 012
+dislike-movie-rsocket --imdb 013
+dislike-movie-rsocket --imdb 014
+dislike-movie-rsocket --imdb 015
+dislike-movie-rsocket --imdb 016
+dislike-movie-rsocket --imdb 017
+dislike-movie-rsocket --imdb 018
+dislike-movie-rsocket --imdb 019
+dislike-movie-rsocket --imdb 020
+get-movies-rsocket
+
 delete-movie-rsocket --imdb 001
 delete-movie-rsocket --imdb 002
 delete-movie-rsocket --imdb 003

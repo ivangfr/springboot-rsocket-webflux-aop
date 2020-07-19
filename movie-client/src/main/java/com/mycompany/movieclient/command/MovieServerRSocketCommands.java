@@ -60,4 +60,22 @@ public class MovieServerRSocketCommands {
                 .block();
     }
 
+    @ShellMethod(key = "like-movie-rsocket", value = "Like movie using RSocket")
+    public String likeMovieRSocket(String imdb) {
+        rSocketRequester.route("like-movie")
+                .data(imdb)
+                .send()
+                .block();
+        return "Like submitted";
+    }
+
+    @ShellMethod(key = "dislike-movie-rsocket", value = "Dislike movie using RSocket")
+    public String dislikeMovieRSocket(String imdb) {
+        rSocketRequester.route("dislike-movie")
+                .data(imdb)
+                .send()
+                .block();
+        return "Dislike submitted";
+    }
+
 }

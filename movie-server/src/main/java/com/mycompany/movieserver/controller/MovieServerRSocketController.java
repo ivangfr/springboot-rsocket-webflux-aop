@@ -8,16 +8,23 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import javax.validation.Valid;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
+@Validated
 public class MovieServerRSocketController {
 
     private final MovieService movieService;
     private final MovieMapper movieMapper;
+
+    // -- Request-Response
+    // =====================
 
     @MessageMapping("get-movies")
     public Flux<Movie> getMovies() {
@@ -27,12 +34,12 @@ public class MovieServerRSocketController {
 
     @MessageMapping("get-movie")
     public Mono<Movie> getMovie(String imdb) {
-        log.info("RSocket :: getMovie, {}", imdb);
+        log.info("RSocket :: getMovie, imdb {}", imdb);
         return movieService.validateAndGetMovie(imdb);
     }
 
     @MessageMapping("add-movie")
-    public Mono<Movie> addMovie(AddMovieRequest addMovieRequest) {
+    public Mono<Movie> addMovie(@Valid AddMovieRequest addMovieRequest) {
         log.info("RSocket :: addMovie, {}", addMovieRequest);
         Movie movie = movieMapper.toMovie(addMovieRequest);
         return movieService.addMovie(movie);
@@ -40,8 +47,23 @@ public class MovieServerRSocketController {
 
     @MessageMapping("delete-movie")
     public Mono<String> deleteMovie(String imdb) {
-        log.info("RSocket :: deleteMovie, {}", imdb);
+        log.info("RSocket :: deleteMovie, imdb {}", imdb);
         return movieService.validateAndGetMovie(imdb).flatMap(movieService::deleteMovie);
+    }
+
+    // -- Fire-And-Forget
+    // ====================
+
+    @MessageMapping("like-movie")
+    public void likeMovie(String imdb) {
+        log.info("RSocket :: likeMovie, imdb {}", imdb);
+        movieService.validateAndGetMovie(imdb).flatMap(movieService::likeMovie).subscribe();
+    }
+
+    @MessageMapping("dislike-movie")
+    public void dislikeMovie(String imdb) {
+        log.info("RSocket :: dislikeMovie, imdb {}", imdb);
+        movieService.validateAndGetMovie(imdb).flatMap(movieService::dislikeMovie).subscribe();
     }
 
 }

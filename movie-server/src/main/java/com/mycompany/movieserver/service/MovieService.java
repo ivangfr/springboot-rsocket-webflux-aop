@@ -14,4 +14,8 @@ public interface MovieService {
 
     Mono<String> deleteMovie(Movie movie);
 
+    Mono<Void> likeMovie(Movie movie);
+
+    Mono<Void> dislikeMovie(Movie movie);
+
 }

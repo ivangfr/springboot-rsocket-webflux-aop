@@ -62,4 +62,24 @@ public class MovieServerRestCommands {
                 .block();
     }
 
+    @ShellMethod(key = "like-movie-rest", value = "Like movie using REST")
+    public String likeMovieRest(String imdb) {
+        webClient.patch()
+                .uri(uriBuilder -> uriBuilder.path("/{imdb}/like").build(imdb))
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+        return "Like submitted";
+    }
+
+    @ShellMethod(key = "dislike-movie-rest", value = "Dislike movie using REST")
+    public String dislikeMovieRest(String imdb) {
+        webClient.patch()
+                .uri(uriBuilder -> uriBuilder.path("/{imdb}/dislike").build(imdb))
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+        return "Dislike submitted";
+    }
+
 }

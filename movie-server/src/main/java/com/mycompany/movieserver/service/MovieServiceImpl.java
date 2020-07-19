@@ -33,4 +33,18 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.delete(movie).then(Mono.just(movie.getImdb()));
     }
 
+    @Override
+    public Mono<Void> likeMovie(Movie movie) {
+        movie.setLikes(movie.getLikes() + 1);
+        movieRepository.save(movie).subscribe();
+        return Mono.empty();
+    }
+
+    @Override
+    public Mono<Void> dislikeMovie(Movie movie) {
+        movie.setDislikes(movie.getDislikes() + 1);
+        movieRepository.save(movie).subscribe();
+        return Mono.empty();
+    }
+
 }
