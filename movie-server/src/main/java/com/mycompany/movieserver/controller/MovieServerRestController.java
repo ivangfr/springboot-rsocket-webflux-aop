@@ -7,6 +7,7 @@ import com.mycompany.movieserver.model.Movie;
 import com.mycompany.movieserver.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -29,44 +30,44 @@ public class MovieServerRestController {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
 
-    @GetMapping("/movies")
+    @GetMapping(value = "/movies", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
     public Flux<Movie> getMovies() {
-        log.info("REST :: getMovies");
+        log.info("REST => getMovies");
         return movieService.getMovies();
     }
 
     @GetMapping("/movies/{imdb}")
     public Mono<Movie> getMovie(@PathVariable String imdb) {
-        log.info("REST :: getMovie, imdb {}", imdb);
-        return movieService.validateAndGetMovie(imdb)
+        log.info("REST => getMovie, imdb: {}", imdb);
+        return movieService.getMovie(imdb)
                 .switchIfEmpty(Mono.error(new MovieNotFoundException(imdb)));
     }
 
     @PostMapping("/movies")
     public Mono<Movie> addMovie(@Valid @RequestBody AddMovieRequest addMovieRequest) {
-        log.info("REST :: addMovie, {}", addMovieRequest);
+        log.info("REST => addMovie, addMovieRequest: {}", addMovieRequest);
         Movie movie = movieMapper.toMovie(addMovieRequest);
         return movieService.addMovie(movie);
     }
 
     @DeleteMapping("/movies/{imdb}")
     public Mono<String> deleteMovie(@PathVariable String imdb) {
-        log.info("REST :: deleteMovie, imdb {}", imdb);
-        return movieService.validateAndGetMovie(imdb)
+        log.info("REST => deleteMovie, imdb: {}", imdb);
+        return movieService.getMovie(imdb)
                 .flatMap(movieService::deleteMovie)
                 .switchIfEmpty(Mono.error(new MovieNotFoundException(imdb)));
     }
 
     @PatchMapping("/movies/{imdb}/like")
     public void likeMovie(@PathVariable String imdb) {
-        log.info("REST :: likeMovie, imdb {}", imdb);
-        movieService.validateAndGetMovie(imdb).flatMap(movieService::likeMovie).subscribe();
+        log.info("REST => likeMovie, imdb: {}", imdb);
+        movieService.getMovie(imdb).flatMap(movieService::likeMovie).subscribe();
     }
 
     @PatchMapping("/movies/{imdb}/dislike")
     public void dislikeMovie(@PathVariable String imdb) {
-        log.info("REST :: dislikeMovie, imdb {}", imdb);
-        movieService.validateAndGetMovie(imdb).flatMap(movieService::dislikeMovie).subscribe();
+        log.info("REST => dislikeMovie, imdb: {}", imdb);
+        movieService.getMovie(imdb).flatMap(movieService::dislikeMovie).subscribe();
     }
 
 }

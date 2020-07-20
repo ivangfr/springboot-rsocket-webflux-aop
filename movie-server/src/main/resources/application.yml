@@ -1,10 +1,6 @@
 spring:
   application:
     name: movie-server
-  rsocket:
-    server:
-      transport: tcp
-      port: 7000
 
 management:
   endpoints:
@@ -13,3 +9,19 @@ management:
   endpoint:
     health:
       show-details: always
+
+---
+spring:
+  profiles: rsocket-tcp
+  rsocket:
+    server:
+      transport: tcp
+      port: 7000
+
+---
+spring:
+  profiles: rsocket-websocket
+  rsocket:
+    server:
+      transport: websocket
+      mapping-path: /rsocket

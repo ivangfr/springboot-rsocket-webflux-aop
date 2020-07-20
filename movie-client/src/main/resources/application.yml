@@ -8,9 +8,23 @@ movie-server:
   host: localhost
   rest:
     port: 8080
-  rsocket:
-    port: 7000
 
 logging:
   level:
     root: error
+
+---
+spring:
+  profiles: rsocket-tcp
+
+movie-server:
+  rsocket:
+    port: 7000
+
+---
+spring:
+  profiles: rsocket-websocket
+
+movie-server:
+  rsocket:
+    mapping-path: /rsocket

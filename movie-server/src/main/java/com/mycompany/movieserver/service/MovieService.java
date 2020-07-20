@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 
 public interface MovieService {
 
-    Mono<Movie> validateAndGetMovie(String imdb);
+    Mono<Movie> getMovie(String imdb);
 
     Flux<Movie> getMovies();
 

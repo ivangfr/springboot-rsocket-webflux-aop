@@ -11,7 +11,7 @@ public class AddMovieRequest {
     @NotBlank
     private String imdb;
 
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 30)
     private String title;
 
 }

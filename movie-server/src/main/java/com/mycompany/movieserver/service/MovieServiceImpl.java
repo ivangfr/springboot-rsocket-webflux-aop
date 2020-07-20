@@ -14,7 +14,7 @@ public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
 
     @Override
-    public Mono<Movie> validateAndGetMovie(String imdb) {
+    public Mono<Movie> getMovie(String imdb) {
         return movieRepository.findById(imdb);
     }
 

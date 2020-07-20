@@ -5,14 +5,17 @@ import com.mycompany.movieclient.dto.AddMovieRequest;
 import com.mycompany.movieclient.dto.MovieDto;
 import com.mycompany.movieclient.exception.MovieNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.shell.standard.ShellCommandGroup;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+@Profile("rsocket-tcp || rsocket-websocket")
 @RequiredArgsConstructor
 @ShellComponent
 @ShellCommandGroup("movie-server RSocket commands")
@@ -76,6 +79,16 @@ public class MovieServerRSocketCommands {
                 .send()
                 .block();
         return "Dislike submitted";
+    }
+
+    @ShellMethod(key = "select-movies-rsocket", value = "Select some movies using RSocket. Inform movies's imdb separated by comma")
+    public List<String> selectMoviesRSocket(String imdbs) {
+        Flux<String> imdbFlux = Flux.just(imdbs.split(","));
+        return rSocketRequester.route("select.movies")
+                .data(imdbFlux)
+                .retrieveFlux(String.class)
+                .collectList()
+                .block();
     }
 
 }
