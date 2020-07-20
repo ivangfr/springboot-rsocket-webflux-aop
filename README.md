@@ -28,7 +28,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   
   - RSocket Routes
     
-    | Frame Types      | Routes                            |
+    | Frame Type       | Route                             |
     | ---------------- | --------------------------------- |
     | Request-Stream   | get.movies                        |
     | Request-Response | get.movie -d "imdb"               |
@@ -40,7 +40,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
   - REST API endpoints
     
-    | Endpoints                             |
+    | Endpoint                              |
     | ------------------------------------- |
     | GET /api/movies                       |
     | GET /api/movies/{imdb}                |
@@ -93,7 +93,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
   Open a new terminal and, inside `springboot-rsocket` root folder, run one of the following commands
   
-  | Profiles          | Commands                                                                                          |
+  | Profile           | Command                                                                                           |
   | ----------------- | ------------------------------------------------------------------------------------------------- |
   | rsocket-tcp       | ./mvnw clean spring-boot:run --projects movie-server -Dspring-boot.run.profiles=rsocket-tcp       |
   | rsocket-websocket | ./mvnw clean spring-boot:run --projects movie-server -Dspring-boot.run.profiles=rsocket-websocket |
@@ -108,7 +108,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
   To start `movie-client` run one of the following commands (it should match with the one picked to run `movie-server`)
   
-  | Profiles          | Commands                                                                                                 |
+  | Profile           | Commands                                                                                                 |
   | ----------------- | -------------------------------------------------------------------------------------------------------- |
   | rsocket-tcp       | export SPRING_PROFILES_ACTIVE=rsocket-tcp && ./movie-client/target/movie-client-0.0.1-SNAPSHOT.jar       |
   | rsocket-websocket | export SPRING_PROFILES_ACTIVE=rsocket-websocket && ./movie-client/target/movie-client-0.0.1-SNAPSHOT.jar |
@@ -116,11 +116,11 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   
 ## Application's URL
 
-| Applications  | Types    | Transports | URLs                        |
-| ------------- | -------- | ---------- | --------------------------- |
-| movie-server  | RSocket  | TCP        | tcp://localhost:7000        |
-| movie-server  | RSocket  | WebSocket  | ws://localhost:8080/rsocket |
-| movie-client  | REST     | HTTP       | http://localhost:8080       |
+| Application  | Type     | Transport | URL                         |
+| ------------ | -------- | --------- | --------------------------- |
+| movie-server | RSocket  | TCP       | tcp://localhost:7000        |
+| movie-server | RSocket  | WebSocket | ws://localhost:8080/rsocket |
+| movie-client | REST     | HTTP      | http://localhost:8080       |
 
 ## Playing Around
 
@@ -210,6 +210,7 @@ In order to the scripts, follow the steps bellow
   Find all movies
   ```
   docker exec -it mongodb mongo
+  use moviedb
   db.movies.find()
   ```
   > Type `exit` to get out of `MongoDB` shell
