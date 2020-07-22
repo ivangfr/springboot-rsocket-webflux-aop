@@ -4,6 +4,8 @@ spring:
   data:
     mongodb:
       uri: mongodb://${MONGODB_HOST:localhost}:${MONGODB_PORT:27017}/moviedb
+  main:
+    lazy-initialization: true
 
 management:
   endpoints:

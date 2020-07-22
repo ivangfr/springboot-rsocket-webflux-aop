@@ -16,10 +16,11 @@ public class MovieServerRSocketConfig {
 
     @Profile("rsocket-tcp")
     @Bean
-    RSocketRequester rSocketRequesterTcp(RSocketStrategies rSocketStrategies,
+    RSocketRequester rSocketRequesterTcp(RSocketRequester.Builder rsocketRequesterBuilder,
+                                         RSocketStrategies rSocketStrategies,
                                          @Value("${movie-server.host:localhost}") String movieServerHost,
                                          @Value("${movie-server.rsocket.port:7000}") int movieServerRSocketPort) {
-        return RSocketRequester.builder()
+        return rsocketRequesterBuilder
                 .rsocketStrategies(rSocketStrategies)
                 .connectTcp(movieServerHost, movieServerRSocketPort)
                 .block();
@@ -27,11 +28,12 @@ public class MovieServerRSocketConfig {
 
     @Profile("rsocket-websocket")
     @Bean
-    RSocketRequester rSocketRequesterWebSocket(RSocketStrategies rSocketStrategies,
+    RSocketRequester rSocketRequesterWebSocket(RSocketRequester.Builder rsocketRequesterBuilder,
+                                               RSocketStrategies rSocketStrategies,
                                                @Value("${movie-server.host:localhost}") String movieServerHost,
                                                @Value("${movie-server.rest.port:8080}") int movieServerRestPort,
                                                @Value("${movie-server.rsocket.mapping-path:/rsocket}") String movieServerRSocketMappingPath) {
-        return RSocketRequester.builder()
+        return rsocketRequesterBuilder
                 .rsocketStrategies(rSocketStrategies)
                 .connectWebSocket(URI.create(String.format("ws://%s:%s%s", movieServerHost, movieServerRestPort, movieServerRSocketMappingPath)))
                 .block();

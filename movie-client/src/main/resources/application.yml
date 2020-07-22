@@ -3,6 +3,7 @@ spring:
     name: movie-client
   main:
     web-application-type: none
+    lazy-initialization: true
 
 movie-server:
   host: localhost
