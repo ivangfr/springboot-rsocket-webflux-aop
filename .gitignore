@@ -1,5 +1,5 @@
 *.DS_Store
-movie-client/*.log
+movie-client-shell/*.log
 
 target/
 !.mvn/wrapper/maven-wrapper.jar

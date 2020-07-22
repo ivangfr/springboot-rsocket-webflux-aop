@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: movie-client-shell
+  main:
+    web-application-type: none
+    lazy-initialization: true
+
+movie-server:
+  host: localhost
+  rest:
+    port: 8080
+
+logging:
+  level:
+    root: error
+
+---
+spring:
+  profiles: rsocket-tcp
+
+movie-server:
+  rsocket:
+    port: 7000
+
+---
+spring:
+  profiles: rsocket-websocket
+
+movie-server:
+  rsocket:
+    mapping-path: /rsocket

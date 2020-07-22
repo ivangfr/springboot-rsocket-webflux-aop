@@ -1,6 +1,6 @@
 # springboot-rsocket
 
-The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement two [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications, `movie-client` and `movie-server`. As storage, we will use the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/).
+The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement two [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications, `movie-client-shell` and `movie-server`. As storage, we will use the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/).
 
 ## Project Architecture
 
@@ -49,13 +49,13 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
     | PATCH /api/movies/{imdb}/like         |
     | PATCH /api/movies/{imdb}/dislike      |
 
-- ### movie-client
+- ### movie-client-shell
 
   `Spring Boot` Shell Java application that has a couple of commands to interact with `movie-server`.
   
   The picture below show those commands
   
-  ![movie-client](images/movie-client.png)
+  ![movie-client-shell](images/movie-client-shell.png)
 
   It has the following profiles:
   - `default`
@@ -99,20 +99,20 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   | rsocket-websocket | ./mvnw clean spring-boot:run --projects movie-server -Dspring-boot.run.profiles=rsocket-websocket |
   | default           | ./mvnw clean spring-boot:run --projects movie-server                                              |
   
-- ### movie-client
+- ### movie-client-shell
 
   Open a new terminal and, inside `springboot-rsocket` root folder, run the following command to build the executable jar file
   ```
-  ./mvnw clean package -DskipTests --projects movie-client
+  ./mvnw clean package -DskipTests --projects movie-client-shell
   ```
 
-  To start `movie-client` run one of the following commands (it should match with the one picked to run `movie-server`)
+  To start `movie-client-shell` run one of the following commands (it should match with the one picked to run `movie-server`)
   
-  | Profile           | Commands                                                                                                 |
-  | ----------------- | -------------------------------------------------------------------------------------------------------- |
-  | rsocket-tcp       | export SPRING_PROFILES_ACTIVE=rsocket-tcp && ./movie-client/target/movie-client-0.0.1-SNAPSHOT.jar       |
-  | rsocket-websocket | export SPRING_PROFILES_ACTIVE=rsocket-websocket && ./movie-client/target/movie-client-0.0.1-SNAPSHOT.jar |
-  | default           | export SPRING_PROFILES_ACTIVE=default && ./movie-client/target/movie-client-0.0.1-SNAPSHOT.jar           |
+  | Profile           | Commands                                                                                                             |
+  | ----------------- | -------------------------------------------------------------------------------------------------------------------- |
+  | rsocket-tcp       | export SPRING_PROFILES_ACTIVE=rsocket-tcp && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar       |
+  | rsocket-websocket | export SPRING_PROFILES_ACTIVE=rsocket-websocket && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar |
+  | default           | export SPRING_PROFILES_ACTIVE=default && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar           |
   
 ## Application's URL
 
@@ -120,13 +120,13 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 | ------------ | -------- | --------- | --------------------------- |
 | movie-server | RSocket  | TCP       | tcp://localhost:7000        |
 | movie-server | RSocket  | WebSocket | ws://localhost:8080/rsocket |
-| movie-client | REST     | HTTP      | http://localhost:8080       |
+| movie-server | REST     | HTTP      | http://localhost:8080       |
 
 ## Playing Around
 
-> **Note:** for running the commands below, you must start `movie-server` and `movie-client` with `rsocket-tcp` or `rsocket-websocket` profiles
+> **Note:** for running the commands below, you must start `movie-server` and `movie-client-shell` with `rsocket-tcp` or `rsocket-websocket` profiles
 
-- Go to `movie-client` terminal
+- Go to `movie-client-shell` terminal
 
 - Add a movie using RSocket (`Request-Response`) 
   ```
@@ -192,7 +192,7 @@ There are two scripts that contain some commands to add movies, retrieve them, s
 
 In order to the scripts, follow the steps bellow
 
-- Go to `movie-client` terminal
+- Go to `movie-client-shell` terminal
 
 - Running the command below will start the script that uses REST
   ```
@@ -214,6 +214,15 @@ In order to the scripts, follow the steps bellow
   db.movies.find()
   ```
   > Type `exit` to get out of `MongoDB` shell
+
+## Shutdown
+
+- Go to `movie-client-shell` terminal and type `exit`
+- Go to `movie-srever` terminal and press `Ctrl+C`
+- To stop and remove `mongodb` container that was started using docker-compose and remove docker-compose network, run
+  ```
+  docker-compose down -v
+  ```
 
 ## References
 
