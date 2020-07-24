@@ -1,6 +1,6 @@
 # springboot-rsocket
 
-The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications, `movie-server`, `movie-client-shell` and `movie-client-ui`. As storage, we will use the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/).
+The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications, `movie-server`, `movie-client-shell` and `movie-client-ui`. As storage, it's used the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/). All the streaming of movie update events and the logging are handling by AOP (Aspect Oriented Programming).
 
 ## Project Architecture
 
@@ -75,6 +75,8 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
   `Spring Boot` Java Web application that uses [`Thymeleaf`](https://www.thymeleaf.org/) and `Websocket` to show at real-time all the events generated when movies are added, deleted, liked and disliked.
 
+  ![movie-client-ui](images/movie-client-ui.png)
+
   It has the following profiles:
   - `default`
      - start REST API on port `8081` and uses `HTTP`
@@ -135,7 +137,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
 - ### movie-client-ui
 
-  Open a new terminal and, inside `springboot-rsocket` root folder, run one of the following commands
+  Open a new terminal and, inside `springboot-rsocket` root folder, run one of the following commands (it should match with the one picked to run `movie-server`)
   
   | Profile           | Command                                                                                              |
   | ----------------- | ---------------------------------------------------------------------------------------------------- |
@@ -157,7 +159,13 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 > http://localhost:8080/actuator/info
 > ```
 
-## Playing Around with movie-client-shell
+## Demo
+
+The GIF below shows a user running some commands in `movie-client-shell`, terminal on the right. In the right-top terminal is running `movie-server` and in the right-bottom, `movie-client-ui`. On the background, there's a browser where movie update events are displayed. 
+
+![demo](images/demo.gif)
+
+## Playing Around with movie-client-shell commands
 
 > **Note:** to run the commands below, you must start `movie-server` and `movie-client-shell` with `rsocket-tcp` or `rsocket-websocket` profiles
 
@@ -221,22 +229,17 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   delete-movie-rest --imdb bbb
   ```
   
-## Simulation
+- **Simulation**
 
-There are two scripts that contain some commands to add movies, retrieve them, send likes and dislikes to them and, finally, delete them. One uses REST and another RSocket to communicate with `movie-server`. At the end of the script execution, it's shown the `Execution Time` in `milliseconds`.
-
-In order to the scripts, follow the steps bellow
-
-- Go to `movie-client-shell` terminal
-
-- Running the command below will start the script that uses REST
-  ```
-  script ../simulation-rest.txt
-  ```
-- Running the following command will start the script that uses RSocket
-  ```
-  script ../simulation-rsocket.txt
-  ```
+  There are two scripts that contain some commands to add, retrieve, like, dislikes and delete movies. One uses REST and another RSocket to communicate with `movie-server`. At the end of the script execution, it's shown the `Execution Time` in `milliseconds`.
+  - Running the command below will start the script that uses REST
+    ```
+    script ../simulation-rest.txt
+    ```
+  - Running the following command will start the script that uses RSocket
+    ```
+    script ../simulation-rsocket.txt
+    ```
 
 ## Useful Commands
 
