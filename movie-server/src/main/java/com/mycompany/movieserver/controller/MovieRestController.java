@@ -51,6 +51,7 @@ public class MovieRestController {
     public Mono<String> deleteMovie(@PathVariable String imdb) {
         return movieService.getMovie(imdb)
                 .flatMap(movieService::deleteMovie)
+                .map(Movie::getImdb)
                 .switchIfEmpty(Mono.error(new MovieNotFoundException(imdb)));
     }
 

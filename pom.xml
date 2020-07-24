@@ -25,6 +25,7 @@
     <modules>
 		<module>movie-server</module>
 		<module>movie-client-shell</module>
+        <module>movie-client-ui</module>
 	</modules>
 
 </project>

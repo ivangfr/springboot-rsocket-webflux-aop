@@ -7,6 +7,8 @@ import com.mycompany.movieserver.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.messaging.rsocket.annotation.ConnectMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -55,7 +57,7 @@ public class MovieRSocketController {
     public Mono<String> deleteMovie(String imdb,
                                     @Header("rsocketFrameType") String rsocketFrameType,
                                     @Header("contentType") String contentType) {
-        return movieService.getMovie(imdb).flatMap(movieService::deleteMovie);
+        return movieService.getMovie(imdb).flatMap(movieService::deleteMovie).map(Movie::getImdb);
     }
 
     // -- Fire-And-Forget
@@ -89,9 +91,11 @@ public class MovieRSocketController {
     // -- Setup
     // ==========
 
-    @ConnectMapping
-    public Mono<Void> connectMapping(@Header("rsocketFrameType") String rsocketFrameType,
-                                     @Header("contentType") String contentType) {
+    @ConnectMapping("client.registration")
+    public Mono<Void> clientRegistration(RSocketRequester rSocketRequester,
+                                         @Payload String clientId,
+                                         @Header("rsocketFrameType") String rsocketFrameType,
+                                         @Header("contentType") String contentType) {
         return Mono.empty();
     }
 

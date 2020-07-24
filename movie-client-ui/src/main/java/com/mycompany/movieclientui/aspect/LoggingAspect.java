@@ -1,4 +1,4 @@
-package com.mycompany.movieserver.aspect;
+package com.mycompany.movieclientui.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class LoggingAspect {
 
-    @Around("execution(public * com.mycompany.movieserver.controller.*Controller.*Movie*(..))")
+    @Around("within(com.mycompany.movieclientui.controller.MovieClientUiController)")
     public Object logInputAndExecutionTime(ProceedingJoinPoint pjp) throws Throwable {
         long t = System.currentTimeMillis();
         log.info("=> {} :: args: {}", pjp.getSignature().toShortString(), pjp.getArgs());

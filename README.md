@@ -1,6 +1,6 @@
 # springboot-rsocket
 
-The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement two [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications, `movie-client-shell` and `movie-server`. As storage, we will use the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/).
+The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications, `movie-server`, `movie-client-shell` and `movie-client-ui`. As storage, we will use the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/).
 
 ## Project Architecture
 
@@ -48,6 +48,8 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
     | DELETE /api/movies/{imdb}             |
     | PATCH /api/movies/{imdb}/like         |
     | PATCH /api/movies/{imdb}/dislike      |
+    | GET /actuator/health                  |
+    | GET /actuator/info                    |
 
 - ### movie-client-shell
 
@@ -68,6 +70,23 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   - `rsocket-websocket`
      - start shell with enabled commands to call `movie-server` REST API endpoints using `HTTP`
      - start shell with enabled commands to call `movie-server` RSocket routes using `WebSocket`
+
+- ### movie-client-ui
+
+  `Spring Boot` Java Web application that uses [`Thymeleaf`](https://www.thymeleaf.org/) and `Websocket` to show at real-time all the events generated when movies are added, deleted, liked and disliked.
+
+  It has the following profiles:
+  - `default`
+     - start REST API on port `8081` and uses `HTTP`
+     - does not connect to `movie-server` through `RSocket`; does not receive movie update events;
+     
+  - `rsocket-tcp`
+     - start REST API on port `8080` and uses `HTTP`
+     - connects to `movie-server` through `RSocket`using `TCP`; receives movie update events;
+     
+  - `rsocket-websocket`
+     - start REST API on port `8080` and uses `HTTP`
+     - connects to `movie-server` through `RSocket`using `WebSocket`; receives movie update events;
 
 ## Prerequisites
 
@@ -113,18 +132,34 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   | rsocket-tcp       | export SPRING_PROFILES_ACTIVE=rsocket-tcp && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar       |
   | rsocket-websocket | export SPRING_PROFILES_ACTIVE=rsocket-websocket && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar |
   | default           | export SPRING_PROFILES_ACTIVE=default && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar           |
+
+- ### movie-client-ui
+
+  Open a new terminal and, inside `springboot-rsocket` root folder, run one of the following commands
   
+  | Profile           | Command                                                                                              |
+  | ----------------- | ---------------------------------------------------------------------------------------------------- |
+  | rsocket-tcp       | ./mvnw clean spring-boot:run --projects movie-client-ui -Dspring-boot.run.profiles=rsocket-tcp       |
+  | rsocket-websocket | ./mvnw clean spring-boot:run --projects movie-client-ui -Dspring-boot.run.profiles=rsocket-websocket |
+  | default           | ./mvnw clean spring-boot:run --projects movie-client-ui                                              |
+
 ## Application's URL
 
-| Application  | Type     | Transport | URL                         |
-| ------------ | -------- | --------- | --------------------------- |
-| movie-server | RSocket  | TCP       | tcp://localhost:7000        |
-| movie-server | RSocket  | WebSocket | ws://localhost:8080/rsocket |
-| movie-server | REST     | HTTP      | http://localhost:8080       |
+| Application     | Type     | Transport | URL                         |
+| --------------- | -------- | --------- | --------------------------- |
+| movie-server    | RSocket  | TCP       | tcp://localhost:7000        |
+| movie-server    | RSocket  | WebSocket | ws://localhost:8080/rsocket |
+| movie-server    | REST     | HTTP      | http://localhost:8080       |
+| movie-client-ui | Website  | HTTP      | http://localhost:8081       |
 
-## Playing Around
+> **Note:** you can see the clients connected to `movie-server` by calling the `info` actuator endpoint
+> ```
+> http://localhost:8080/actuator/info
+> ```
 
-> **Note:** for running the commands below, you must start `movie-server` and `movie-client-shell` with `rsocket-tcp` or `rsocket-websocket` profiles
+## Playing Around with movie-client-shell
+
+> **Note:** to run the commands below, you must start `movie-server` and `movie-client-shell` with `rsocket-tcp` or `rsocket-websocket` profiles
 
 - Go to `movie-client-shell` terminal
 
@@ -218,7 +253,8 @@ In order to the scripts, follow the steps bellow
 ## Shutdown
 
 - Go to `movie-client-shell` terminal and type `exit`
-- Go to `movie-srever` terminal and press `Ctrl+C`
+- Go to `movie-client-ui` terminal and press `Ctrl+C`
+- Go to `movie-server` terminal and press `Ctrl+C`
 - To stop and remove `mongodb` container that was started using docker-compose and remove docker-compose network, run
   ```
   docker-compose down -v
@@ -227,3 +263,4 @@ In order to the scripts, follow the steps bellow
 ## References
 
 - https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#rsocket
+- https://spring.io/blog/2020/05/12/getting-started-with-rsocket-servers-calling-clients

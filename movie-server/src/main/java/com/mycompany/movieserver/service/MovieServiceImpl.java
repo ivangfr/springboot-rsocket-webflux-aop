@@ -29,22 +29,20 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Mono<String> deleteMovie(Movie movie) {
-        return movieRepository.delete(movie).then(Mono.just(movie.getImdb()));
+    public Mono<Movie> deleteMovie(Movie movie) {
+        return movieRepository.delete(movie).then(Mono.just(movie));
     }
 
     @Override
-    public Mono<Void> likeMovie(Movie movie) {
+    public Mono<Movie> likeMovie(Movie movie) {
         movie.setLikes(movie.getLikes() + 1);
-        movieRepository.save(movie).subscribe();
-        return Mono.empty();
+        return movieRepository.save(movie).then(Mono.just(movie));
     }
 
     @Override
-    public Mono<Void> dislikeMovie(Movie movie) {
+    public Mono<Movie> dislikeMovie(Movie movie) {
         movie.setDislikes(movie.getDislikes() + 1);
-        movieRepository.save(movie).subscribe();
-        return Mono.empty();
+        return movieRepository.save(movie).then(Mono.just(movie));
     }
 
 }

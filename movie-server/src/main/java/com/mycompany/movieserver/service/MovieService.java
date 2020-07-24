@@ -12,10 +12,10 @@ public interface MovieService {
 
     Mono<Movie> addMovie(Movie movie);
 
-    Mono<String> deleteMovie(Movie movie);
+    Mono<Movie> deleteMovie(Movie movie);
 
-    Mono<Void> likeMovie(Movie movie);
+    Mono<Movie> likeMovie(Movie movie);
 
-    Mono<Void> dislikeMovie(Movie movie);
+    Mono<Movie> dislikeMovie(Movie movie);
 
 }

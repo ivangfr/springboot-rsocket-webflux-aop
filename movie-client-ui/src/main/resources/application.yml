@@ -1,17 +1,22 @@
 spring:
   application:
-    name: movie-client-shell
-  main:
-    web-application-type: none
+    name: movie-client-ui
+
+server:
+  port: 8081
 
 movie-server:
   host: localhost
   rest:
     port: 8080
 
-logging:
-  level:
-    root: warn
+management:
+  endpoints:
+    web:
+      exposure.include: health
+  endpoint:
+    health:
+      show-details: always
 
 ---
 spring:

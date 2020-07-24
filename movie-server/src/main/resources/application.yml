@@ -4,13 +4,11 @@ spring:
   data:
     mongodb:
       uri: mongodb://${MONGODB_HOST:localhost}:${MONGODB_PORT:27017}/moviedb
-  main:
-    lazy-initialization: true
 
 management:
   endpoints:
     web:
-      exposure.include: beans, env, health, info, metrics, mappings
+      exposure.include: health, info
   endpoint:
     health:
       show-details: always
