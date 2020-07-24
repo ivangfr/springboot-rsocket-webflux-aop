@@ -11,11 +11,11 @@
     </parent>
 
     <groupId>com.mycompany</groupId>
-    <artifactId>springboot-rsocket</artifactId>
+    <artifactId>springboot-rsocket-webflux-aop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-    <name>springboot-rsocket</name>
+    <name>springboot-rsocket-webflux-aop</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

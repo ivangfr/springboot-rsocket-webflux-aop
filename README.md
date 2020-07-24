@@ -1,4 +1,4 @@
-# springboot-rsocket
+# springboot-rsocket-webflux-aop
 
 The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications, `movie-server`, `movie-client-shell` and `movie-client-ui`. As storage, it's used the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/). All the streaming of movie update events and the logging are handling by AOP (Aspect Oriented Programming).
 
@@ -98,7 +98,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
 ## Start Environment
 
-- Open a terminal and inside `springboot-rsocket` root folder run
+- Open a terminal and inside `springboot-rsocket-webflux-aop` root folder run
   ```
   docker-compose up -d
   ```
@@ -112,7 +112,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
 - ### movie-server
 
-  Open a new terminal and, inside `springboot-rsocket` root folder, run one of the following commands
+  Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run one of the following commands
   
   | Profile           | Command                                                                                           |
   | ----------------- | ------------------------------------------------------------------------------------------------- |
@@ -122,7 +122,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   
 - ### movie-client-shell
 
-  Open a new terminal and, inside `springboot-rsocket` root folder, run the following command to build the executable jar file
+  Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the following command to build the executable jar file
   ```
   ./mvnw clean package -DskipTests --projects movie-client-shell
   ```
@@ -137,7 +137,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
 - ### movie-client-ui
 
-  Open a new terminal and, inside `springboot-rsocket` root folder, run one of the following commands (it should match with the one picked to run `movie-server`)
+  Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run one of the following commands (it should match with the one picked to run `movie-server`)
   
   | Profile           | Command                                                                                              |
   | ----------------- | ---------------------------------------------------------------------------------------------------- |
