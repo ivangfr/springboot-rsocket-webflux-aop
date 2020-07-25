@@ -10,9 +10,10 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
 - ### movie-server
 
-  `Spring Boot` Java Web application that exposes REST API endpoints or RSocket routes to manage `movies`. `movie-server` uses `MongoDB` as storage.
+  `Spring Boot` Java Web application that exposes REST API endpoints or RSocket routes to manage `movies`. Movies data are stored in reactive `MongoDB`.
   
-  It has the following profiles:
+  `movie-server` has the following profiles:
+  
   - `default`
      - start REST API on port `8080` and uses `HTTP`
      
@@ -23,33 +24,6 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   - `rsocket-websocket`
      - start REST API on port `8080` and uses `HTTP`
      - start RSocket with mapping-path `/rsocket` and uses `WebSocket`
-  
-  **Routes and Endpoints**
-  
-  - RSocket Routes
-    
-    | Frame Type       | Route                             |
-    | ---------------- | --------------------------------- |
-    | Request-Stream   | get.movies                        |
-    | Request-Response | get.movie -d "imdb"               |
-    |                  | add.movie -d {"imdb", "title"}    |
-    |                  | delete.movie -d "imdb"            |
-    | Fire-And-Forget  | like.movie -d "imdb"              |
-    |                  | dislike.movie -d "imdb"           |
-    | Channel          | select.movies -d Flux("imdb,...)" |
-
-  - REST API endpoints
-    
-    | Endpoint                              |
-    | ------------------------------------- |
-    | GET /api/movies                       |
-    | GET /api/movies/{imdb}                |
-    | POST /api/movies -d {"imdb", "title"} |
-    | DELETE /api/movies/{imdb}             |
-    | PATCH /api/movies/{imdb}/like         |
-    | PATCH /api/movies/{imdb}/dislike      |
-    | GET /actuator/health                  |
-    | GET /actuator/info                    |
 
 - ### movie-client-shell
 
@@ -60,6 +34,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   ![movie-client-shell](images/movie-client-shell.png)
 
   It has the following profiles:
+  
   - `default`
      - start shell with enabled commands to call `movie-server` REST API endpoints using `HTTP`
      
@@ -77,7 +52,8 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
   ![movie-client-ui](images/movie-client-ui.png)
 
-  It has the following profiles:
+  `movie-client-ui` has the following profiles:
+  
   - `default`
      - start REST API on port `8081` and uses `HTTP`
      - does not connect to `movie-server` through `RSocket`; does not receive movie update events;
@@ -263,7 +239,12 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   docker-compose down -v
   ```
 
+## TODO
+
+- Implement client reconnection to the server when the server goes down and then, goes up again.
+
 ## References
 
 - https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#rsocket
 - https://spring.io/blog/2020/05/12/getting-started-with-rsocket-servers-calling-clients
+- https://grapeup.com/blog/reactive-service-to-service-communication-with-rsocket-introduction/

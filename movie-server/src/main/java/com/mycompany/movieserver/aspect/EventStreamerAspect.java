@@ -58,7 +58,7 @@ public class EventStreamerAspect {
         return retVal;
     }
 
-    @AfterReturning(pointcut = "execution(public * com.mycompany.movieserver.service.MovieServiceImpl.addMovie(..))", returning = "movieMono")
+    @AfterReturning(pointcut = "execution(public * com.mycompany.movieserver.service.MovieService.addMovie(..))", returning = "movieMono")
     public void streamAddedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
@@ -67,7 +67,7 @@ public class EventStreamerAspect {
                         .subscribe()));
     }
 
-    @AfterReturning(pointcut = "execution(public * com.mycompany.movieserver.service.MovieServiceImpl.deleteMovie(..))", returning = "movieMono")
+    @AfterReturning(pointcut = "execution(public * com.mycompany.movieserver.service.MovieService.deleteMovie(..))", returning = "movieMono")
     public void streamDeletedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
@@ -76,7 +76,7 @@ public class EventStreamerAspect {
                         .subscribe()));
     }
 
-    @AfterReturning(pointcut = "execution(public * com.mycompany.movieserver.service.MovieServiceImpl.likeMovie(..))", returning = "movieMono")
+    @AfterReturning(pointcut = "execution(public * com.mycompany.movieserver.service.MovieService.likeMovie(..))", returning = "movieMono")
     public void streamLikedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
@@ -85,7 +85,7 @@ public class EventStreamerAspect {
                         .subscribe()));
     }
 
-    @AfterReturning(pointcut = "execution(public * com.mycompany.movieserver.service.MovieServiceImpl.dislikeMovie(..))", returning = "movieMono")
+    @AfterReturning(pointcut = "execution(public * com.mycompany.movieserver.service.MovieService.dislikeMovie(..))", returning = "movieMono")
     public void streamDislikedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
