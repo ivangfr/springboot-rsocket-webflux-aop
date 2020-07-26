@@ -92,7 +92,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 ## Start applications
 
-- ### movie-server
+- **movie-server**
 
   Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run one of the following commands
   
@@ -102,7 +102,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   | rsocket-websocket | ./mvnw clean spring-boot:run --projects movie-server -Dspring-boot.run.profiles=rsocket-websocket |
   | default           | ./mvnw clean spring-boot:run --projects movie-server                                              |
   
-- ### movie-client-shell
+- **movie-client-shell**
 
   Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the following command to build the executable jar file
   ```
@@ -117,7 +117,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   | rsocket-websocket | export SPRING_PROFILES_ACTIVE=rsocket-websocket && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar |
   | default           | export SPRING_PROFILES_ACTIVE=default && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar           |
 
-- ### movie-client-ui
+- **movie-client-ui**
 
   Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run one of the following commands (it should match with the one picked to run `movie-server`)
   
