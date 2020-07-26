@@ -66,6 +66,12 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
      - start REST API on port `8080` and uses `HTTP`
      - connects to `movie-server` through `RSocket`using `WebSocket`; receives movie update events;
 
+## Demo
+
+The GIF below shows a user running some commands in `movie-client-shell`, terminal on the right. In the right-top terminal is running `movie-server` and in the right-bottom, `movie-client-ui`. On the background, there's a browser where movie update events are displayed. 
+
+![demo](images/demo.gif)
+
 ## Prerequisites
 
 - [`Java 11+`](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
@@ -134,12 +140,6 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 > ```
 > http://localhost:8080/actuator/info
 > ```
-
-## Demo
-
-The GIF below shows a user running some commands in `movie-client-shell`, terminal on the right. In the right-top terminal is running `movie-server` and in the right-bottom, `movie-client-ui`. On the background, there's a browser where movie update events are displayed. 
-
-![demo](images/demo.gif)
 
 ## Playing Around with movie-client-shell commands
 
@@ -241,7 +241,8 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 ## TODO
 
-- Implement client reconnection to the server when the server goes down and then, goes up again.
+- Add authentication and authorization using `Keycloak`;
+- Implement client reconnection to the server when the server restarts.
 
 ## References
 

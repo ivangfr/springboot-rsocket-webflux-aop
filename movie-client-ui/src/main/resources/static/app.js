@@ -1,10 +1,9 @@
-var stompClient = null;
+let stompClient = null;
 
 function connect() {
     const socket = new SockJS('/websocket')
     stompClient = Stomp.over(socket)
 
-    var prevPriceValue = null
     stompClient.connect({},
         function (frame) {
             console.log('Connected: ' + frame)
