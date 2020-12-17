@@ -30,7 +30,7 @@ public class MovieRestController {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
 
-    @GetMapping(value = "/movies", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+    @GetMapping(value = "/movies", produces = MediaType.APPLICATION_NDJSON_VALUE)
     public Flux<Movie> getMovies() {
         return movieService.getMovies();
     }

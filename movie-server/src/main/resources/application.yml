@@ -15,7 +15,9 @@ management:
 
 ---
 spring:
-  profiles: rsocket-tcp
+  config:
+    activate:
+      on-profile: rsocket-tcp
   rsocket:
     server:
       transport: tcp
@@ -23,7 +25,9 @@ spring:
 
 ---
 spring:
-  profiles: rsocket-websocket
+  config:
+    activate:
+      on-profile: rsocket-websocket
   rsocket:
     server:
       transport: websocket

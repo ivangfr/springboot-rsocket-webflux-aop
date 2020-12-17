@@ -12,7 +12,6 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.messaging.rsocket.annotation.ConnectMapping;
 import org.springframework.messaging.rsocket.annotation.support.RSocketFrameTypeMessageCondition;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -21,7 +20,6 @@ import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Controller
-@Validated
 public class MovieRSocketController {
 
     private final MovieService movieService;

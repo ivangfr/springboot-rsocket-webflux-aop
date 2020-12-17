@@ -20,7 +20,9 @@ management:
 
 ---
 spring:
-  profiles: rsocket-tcp
+  config:
+    activate:
+      on-profile: rsocket-tcp
 
 movie-server:
   rsocket:
@@ -28,7 +30,9 @@ movie-server:
 
 ---
 spring:
-  profiles: rsocket-websocket
+  config:
+    activate:
+      on-profile: rsocket-websocket
 
 movie-server:
   rsocket:

@@ -85,7 +85,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   docker-compose up -d
   ```
 
-- Wait a bit until `mongodb` is Up (healthy). You can check the status by running
+- Wait until `mongodb` is Up (healthy). You can check the status by running
   ```
   docker-compose ps
   ```
@@ -138,7 +138,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 > **Note:** you can see the clients connected to `movie-server` by calling the `info` actuator endpoint
 > ```
-> http://localhost:8080/actuator/info
+> curl -i localhost:8080/actuator/info
 > ```
 
 ## Playing Around with movie-client-shell commands
