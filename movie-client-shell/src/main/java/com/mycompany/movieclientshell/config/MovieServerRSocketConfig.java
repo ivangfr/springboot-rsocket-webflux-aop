@@ -1,5 +1,6 @@
 package com.mycompany.movieclientshell.config;
 
+import io.rsocket.RSocket;
 import io.rsocket.transport.ClientTransport;
 import io.rsocket.transport.netty.client.TcpClientTransport;
 import io.rsocket.transport.netty.client.WebsocketClientTransport;
@@ -52,11 +53,11 @@ public class MovieServerRSocketConfig {
                 .setupRoute("client.registration")
                 .setupData(clientId)
                 .rsocketStrategies(rSocketStrategies)
-                .connect(clientTransport)
-                .block();
+                .transport(clientTransport);
 
-        rSocketRequester.rsocket()
-                .onClose()
+        rSocketRequester.rsocketClient()
+                .source()
+                .flatMap(RSocket::onClose)
                 .doOnError(error -> log.warn("Connection CLOSED"))
                 .doFinally(consumer -> log.warn("DISCONNECTED"))
                 .subscribe();

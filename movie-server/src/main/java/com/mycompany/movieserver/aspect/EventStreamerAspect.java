@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.movieserver.controller.dto.MovieUpdateMessage;
 import com.mycompany.movieserver.model.Movie;
+import io.rsocket.RSocket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -39,8 +40,9 @@ public class EventStreamerAspect {
         long t = System.currentTimeMillis();
         log.info("=> {} :: args: {}", pjp.getSignature().toShortString(), pjp.getArgs());
 
-        rSocketRequester.rsocket()
-                .onClose()
+        rSocketRequester.rsocketClient()
+                .source()
+                .flatMap(RSocket::onClose)
                 .doFirst(() -> {
                     clients.put(clientId, rSocketRequester);
                     log.info("Client: {} CONNECTED. Number of Clients: {}", clientId, clients.size());

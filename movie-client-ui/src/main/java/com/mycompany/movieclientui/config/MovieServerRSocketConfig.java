@@ -1,6 +1,7 @@
 package com.mycompany.movieclientui.config;
 
 import com.mycompany.movieclientui.controller.MovieClientUiController;
+import io.rsocket.RSocket;
 import io.rsocket.SocketAcceptor;
 import io.rsocket.transport.ClientTransport;
 import io.rsocket.transport.netty.client.TcpClientTransport;
@@ -63,11 +64,11 @@ public class MovieServerRSocketConfig {
                 .setupData(clientId)
                 .rsocketStrategies(rSocketStrategies)
                 .rsocketConnector(connector -> connector.acceptor(socketAcceptor))
-                .connect(clientTransport)
-                .block();
+                .transport(clientTransport);
 
-        rSocketRequester.rsocket()
-                .onClose()
+        rSocketRequester.rsocketClient()
+                .source()
+                .flatMap(RSocket::onClose)
                 .doOnError(error -> log.warn("Connection CLOSED"))
                 .doFinally(consumer -> log.info("DISCONNECTED"))
                 .subscribe();
