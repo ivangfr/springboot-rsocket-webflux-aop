@@ -242,7 +242,6 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 ## TODO
 
 - Add authentication and authorization using `Keycloak`;
-- Implement client reconnection to the server when the server restarts.
 
 ## References
 

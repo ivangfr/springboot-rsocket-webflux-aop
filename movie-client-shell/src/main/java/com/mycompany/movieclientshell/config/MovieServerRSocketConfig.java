@@ -11,8 +11,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.messaging.rsocket.RSocketStrategies;
+import reactor.util.retry.Retry;
+import reactor.util.retry.RetryBackoffSpec;
 
 import java.net.URI;
+import java.time.Duration;
 import java.util.UUID;
 
 @Slf4j
@@ -49,10 +52,14 @@ public class MovieServerRSocketConfig {
                                                     ClientTransport clientTransport) {
         String clientId = String.format("%s.%s", applicationName, UUID.randomUUID().toString());
 
+        RetryBackoffSpec retryBackoffSpec = Retry.fixedDelay(120, Duration.ofSeconds(1))
+                .doBeforeRetry(retrySignal -> log.warn("Reconnecting... {}", retrySignal));
+
         RSocketRequester rSocketRequester = rSocketRequesterBuilder
                 .setupRoute("client.registration")
                 .setupData(clientId)
                 .rsocketStrategies(rSocketStrategies)
+                .rsocketConnector(connector -> connector.reconnect(retryBackoffSpec))
                 .transport(clientTransport);
 
         rSocketRequester.rsocketClient()

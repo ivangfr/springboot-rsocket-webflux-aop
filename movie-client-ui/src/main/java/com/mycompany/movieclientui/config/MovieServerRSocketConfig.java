@@ -15,8 +15,11 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.messaging.rsocket.RSocketStrategies;
 import org.springframework.messaging.rsocket.annotation.support.RSocketMessageHandler;
+import reactor.util.retry.Retry;
+import reactor.util.retry.RetryBackoffSpec;
 
 import java.net.URI;
+import java.time.Duration;
 import java.util.UUID;
 
 @Slf4j
@@ -59,16 +62,21 @@ public class MovieServerRSocketConfig {
 
         SocketAcceptor socketAcceptor = RSocketMessageHandler.responder(rSocketStrategies, movieClientUiController);
 
+        RetryBackoffSpec retryBackoffSpec = Retry.fixedDelay(120, Duration.ofSeconds(1))
+                .doBeforeRetry(retrySignal -> log.warn("Reconnecting... {}", retrySignal));
+
         RSocketRequester rSocketRequester = rSocketRequesterBuilder
                 .setupRoute("client.registration")
                 .setupData(clientId)
                 .rsocketStrategies(rSocketStrategies)
-                .rsocketConnector(connector -> connector.acceptor(socketAcceptor))
+                .rsocketConnector(connector -> connector.acceptor(socketAcceptor).reconnect(retryBackoffSpec))
                 .transport(clientTransport);
 
         rSocketRequester.rsocketClient()
                 .source()
                 .flatMap(RSocket::onClose)
+                .repeat()
+                .retryWhen(retryBackoffSpec)
                 .doOnError(error -> log.warn("Connection CLOSED"))
                 .doFinally(consumer -> log.info("DISCONNECTED"))
                 .subscribe();
