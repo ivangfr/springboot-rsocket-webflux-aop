@@ -1,6 +1,6 @@
 # springboot-rsocket-webflux-aop
 
-The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications, `movie-server`, `movie-client-shell` and `movie-client-ui`. As storage, it's used the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/). All the streaming of movie update events and the logging are handling by AOP (Aspect Oriented Programming).
+The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications: `movie-server`, `movie-client-shell` and `movie-client-ui`. As storage, it's used the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/). All the streaming of movie events and the logging are handling by AOP (Aspect Oriented Programming).
 
 ## Project Architecture
 
@@ -56,19 +56,19 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   
   - `default`
      - start REST API on port `8081` and uses `HTTP`
-     - does not connect to `movie-server` through `RSocket`; does not receive movie update events;
+     - does not connect to `movie-server` through `RSocket`; does not receive movie events;
      
   - `rsocket-tcp`
      - start REST API on port `8080` and uses `HTTP`
-     - connects to `movie-server` through `RSocket`using `TCP`; receives movie update events;
+     - connects to `movie-server` through `RSocket`using `TCP`; receives movie events;
      
   - `rsocket-websocket`
      - start REST API on port `8080` and uses `HTTP`
-     - connects to `movie-server` through `RSocket`using `WebSocket`; receives movie update events;
+     - connects to `movie-server` through `RSocket`using `WebSocket`; receives movie events;
 
 ## Demo
 
-The GIF below shows a user running some commands in `movie-client-shell`, terminal on the right. In the right-top terminal is running `movie-server` and in the right-bottom, `movie-client-ui`. On the background, there's a browser where movie update events are displayed. 
+The GIF below shows a user running some commands in `movie-client-shell`, terminal on the right. In the right-top terminal is running `movie-server` and in the right-bottom, `movie-client-ui`. On the background, there's a browser where movie events are displayed. 
 
 ![demo](images/demo.gif)
 
@@ -111,11 +111,11 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
   To start `movie-client-shell` run one of the following commands (it should match with the one picked to run `movie-server`)
   
-  | Profile           | Commands                                                                                                             |
-  | ----------------- | -------------------------------------------------------------------------------------------------------------------- |
-  | rsocket-tcp       | export SPRING_PROFILES_ACTIVE=rsocket-tcp && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar       |
-  | rsocket-websocket | export SPRING_PROFILES_ACTIVE=rsocket-websocket && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar |
-  | default           | export SPRING_PROFILES_ACTIVE=default && ./movie-client-shell/target/movie-client-shell-0.0.1-SNAPSHOT.jar           |
+  | Profile           | Commands                                                                                                    |
+  | ----------------- | ----------------------------------------------------------------------------------------------------------- |
+  | rsocket-tcp       | export SPRING_PROFILES_ACTIVE=rsocket-tcp && ./movie-client-shell/target/movie-client-shell-1.0.0.jar       |
+  | rsocket-websocket | export SPRING_PROFILES_ACTIVE=rsocket-websocket && ./movie-client-shell/target/movie-client-shell-1.0.0.jar |
+  | default           | export SPRING_PROFILES_ACTIVE=default && ./movie-client-shell/target/movie-client-shell-1.0.0.jar           |
 
 - **movie-client-ui**
 
