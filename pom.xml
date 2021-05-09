@@ -19,6 +19,9 @@
 
     <properties>
         <java.version>11</java.version>
+        <jib-maven-plugin.version>3.0.0</jib-maven-plugin.version>
+        <openjdk-image.version>11.0.11</openjdk-image.version>
+        <docker-image.prefix>docker.mycompany.com</docker-image.prefix>
     </properties>
 
     <modules>
@@ -26,5 +29,23 @@
         <module>movie-client-shell</module>
         <module>movie-client-ui</module>
     </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib-maven-plugin.version}</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:${openjdk-image.version}</image>
+                    </from>
+                    <to>
+                        <image>${docker-image.prefix}/${project.artifactId}:${project.version}</image>
+                    </to>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -90,7 +90,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   docker-compose ps
   ```
 
-## Start applications
+## Running applications with Maven
 
 - **movie-server**
 
@@ -126,6 +126,59 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   | rsocket-tcp       | ./mvnw clean spring-boot:run --projects movie-client-ui -Dspring-boot.run.profiles=rsocket-tcp       |
   | rsocket-websocket | ./mvnw clean spring-boot:run --projects movie-client-ui -Dspring-boot.run.profiles=rsocket-websocket |
   | default           | ./mvnw clean spring-boot:run --projects movie-client-ui                                              |
+
+## Running applications as Docker containers
+
+- ### Build Docker images
+
+  - In a terminal, make sure you are in `springboot-rsocket-webflux-aop` root folder
+  - Run the following script to build the Docker images
+    - JVM
+      ```
+      ./docker-build.sh
+      ```
+    - Native (it's not implemented yet)
+      ```
+      ./docker-build.sh native
+      ```
+
+- ### Environment variables
+
+  - **movie-server**
+
+    | Environment Variable | Description                                                       |
+    | -------------------- | ----------------------------------------------------------------- |
+    | `MONGODB_HOST`       | Specify host of the `Mongo` database to use (default `localhost`) |
+    | `MONGODB_PORT`       | Specify port of the `Mongo` database to use (default `27017`)     |
+
+  - **movie-client-shell**
+
+    | Environment Variable | Description                                                     |
+    | -------------------- | --------------------------------------------------------------- |
+    | `MOVIE_SERVER_HOST`  | Specify host of the `movie-server` to use (default `localhost`) |
+
+  - **movie-client-ui**
+
+    | Environment Variable | Description                                                     |
+    | -------------------- | --------------------------------------------------------------- |
+    | `MOVIE_SERVER_HOST`  | Specify host of the `movie-server` to use (default `localhost`) |
+
+- ### Start Docker containers
+
+  - In a terminal, make sure you are inside `springboot-rsocket-webflux-aop` root folder
+  - Run following command
+    - rsocket-tcp
+      ```
+      ./start-server-and-ui.sh rsocket-tcp && ./start-shell.sh rsocket-tcp
+      ```
+    - rsocket-websocket
+      ```
+      ./start-server-and-ui.sh rsocket-websocket && ./start-shell.sh rsocket-websocket
+      ```
+    - default
+      ```
+      ./start-server-and-ui.sh && ./start-shell.sh
+      ```
 
 ## Application's URL
 
@@ -208,14 +261,26 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 - **Simulation**
 
   There are two scripts that contain some commands to add, retrieve, like, dislikes and delete movies. One uses REST and another RSocket to communicate with `movie-server`. At the end of the script execution, it's shown the `Execution Time` in `milliseconds`.
-  - Running the command below will start the script that uses REST
-    ```
-    script ../simulation-rest.txt
-    ```
-  - Running the following command will start the script that uses RSocket
-    ```
-    script ../simulation-rsocket.txt
-    ```
+  
+  - If you are running the applications with Maven
+    - REST
+      ```
+      script ../src/main/resources/simulation-rest.txt
+      ```
+    - RSocket
+      ```
+      script ../src/main/resources/simulation-rsocket.txt
+      ```
+
+  - If you are running the applications as Docker containers
+    - REST
+      ```
+      script /app/resources/simulation-rest.txt
+      ```
+    - RSocket
+      ```
+      script /app/resources/simulation-rsocket.txt
+      ```
 
 ## Useful Commands
 
@@ -231,17 +296,21 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 ## Shutdown
 
-- Go to `movie-client-shell` terminal and type `exit`
-- Go to `movie-client-ui` terminal and press `Ctrl+C`
-- Go to `movie-server` terminal and press `Ctrl+C`
-- To stop and remove `mongodb` container that was started using docker-compose and remove docker-compose network, run
+- To stop `movie-client-shell`, go to its terminal and type `exit`
+- To stop `movie-server` and `movie-client-ui`
+  - If you start them with Maven, go to their terminals and press `Ctrl+C`
+  - If you start them as Docker containers, make sure you are inside `springboot-rsocket-webflux-aop` root folder and run
+    ```
+    ./stop-server-and-ui.sh
+    ```
+- To stop and remove docker-compose `mongodb` container, network and volumes, run the command below inside `springboot-rsocket-webflux-aop` root folder
   ```
   docker-compose down -v
   ```
 
 ## TODO
 
-- Add authentication and authorization using `Keycloak`;
+- Add authentication and authorization using `Keycloak`
 
 ## References
 

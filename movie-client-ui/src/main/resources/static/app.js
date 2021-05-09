@@ -16,7 +16,8 @@ function connect() {
             })
         },
         function() {
-            console.log('Unable to connect to Websocket!')
+            showModal($('.modal.alert'), 'WebSocket Disconnected', 'WebSocket is disconnected. Maybe, movie-client-ui is down or restarting')
+            $('.connWebSocket').find('i').removeClass('green').addClass('red')
         }
     )
 }
@@ -38,6 +39,16 @@ function pickIcon(action) {
             break
     }
     return '<i class="'+iconName+' big icon">'
+}
+
+function showModal($modal, header, description, fnApprove) {
+    $modal.find('.header').text(header)
+    $modal.find('.content').text(description)
+    $modal.modal({
+        onApprove: function() {
+            fnApprove && fnApprove()
+        }
+    }).modal('show')
 }
 
 connect()
