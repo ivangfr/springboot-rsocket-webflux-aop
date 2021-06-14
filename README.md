@@ -198,7 +198,9 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 > **Note:** to run the commands below, you must start `movie-server` and `movie-client-shell` with `rsocket-tcp` or `rsocket-websocket` profiles
 
-- Go to `movie-client-shell` terminal
+- Open a browser and access `movie-client-ui` at http://localhost:8081
+
+- Next, go to `movie-client-shell` terminal
 
 - Add a movie using RSocket (`Request-Response`) 
   ```
@@ -210,6 +212,8 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   {"imdb":"aaa","title":"RSocketland","lastModifiedDate":"2020-07-20T12:43:39.857248","likes":0,"dislikes":0}
   ```
   
+  A `+` action should be displayed in `movie-client-ui`
+  
 - Add a movie using REST
   ```
   add-movie-rest --imdb bbb --title "I, REST"
@@ -220,15 +224,19 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   {"imdb":"bbb","title":"I, REST","lastModifiedDate":"2020-07-20T12:44:13.266657","likes":0,"dislikes":0}
   ```
   
+  A `+` action should be displayed in `movie-client-ui`
+  
 - Send a like to `RSocketland` movie using RSocket (`Fire-And-Forget`)
   ```
   like-movie-rsocket --imdb aaa
   ```
-
+  
   It should return
   ```
   Like submitted
   ```
+  
+  A `thumbs-up` action should be displayed in `movie-client-ui`
 
 - Get all movies using RSocket (`Request-Stream`)
   ```
@@ -245,18 +253,22 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   ```
   select-movies-rsocket --imdbs aaa,bbb
   ```
-
+  
   It should return
   ```
   | IMBD: aaa        | TITLE: RSocketland                    | LIKES: 1     | DISLIKES: 0     |
   | IMBD: bbb        | TITLE: I, REST                        | LIKES: 0     | DISLIKES: 0     |
   ```
   
-- Delete movie `RSocketland` using RSocket (`Request-Response`) and `I, REST` using REST
+- Delete movie `RSocketland` using RSocket (`Request-Response`) and movie `I, REST` using REST
   ```
   delete-movie-rsocket --imdb aaa
   delete-movie-rest --imdb bbb
   ```
+  
+  It should return, as response, the IMDB of the movies
+  
+  A `-` actions should be displayed in `movie-client-ui`
   
 - **Simulation**
 
