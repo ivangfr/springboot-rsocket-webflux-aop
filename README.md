@@ -200,7 +200,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 - Open a browser and access `movie-client-ui` at http://localhost:8081
 
-- Next, go to `movie-client-shell` terminal
+- Go to `movie-client-shell` terminal
 
 - Add a movie using RSocket (`Request-Response`) 
   ```
@@ -308,17 +308,24 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 ## Shutdown
 
-- To stop `movie-client-shell`, go to its terminal and type `exit`
+- To stop `movie-client-shell`, go to the terminal where it is running and type `exit`
 - To stop `movie-server` and `movie-client-ui`
-  - If you start them with Maven, go to their terminals and press `Ctrl+C`
-  - If you start them as Docker containers, make sure you are inside `springboot-rsocket-webflux-aop` root folder and run
+  - If you start them with Maven, go to the terminals where they are running and press `Ctrl+C`
+  - If you start them as Docker containers, go to a terminal and run the following command
     ```
-    ./stop-server-and-ui.sh
+    docker stop movie-server movie-client-ui
     ```
-- To stop and remove docker-compose `mongodb` container, network and volumes, run the command below inside `springboot-rsocket-webflux-aop` root folder
+- To stop and remove docker-compose `mongodb` container, network and volumes, go to a terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the command below
   ```
   docker-compose down -v
   ```
+
+## Cleanup
+
+To remove the Docker images created by this project, go to a terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the script below
+```
+./remove-docker-images.sh
+```
 
 ## TODO
 
