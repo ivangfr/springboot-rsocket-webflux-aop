@@ -106,7 +106,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
   Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the following command to build the executable jar file
   ```
-  ./mvnw clean package -DskipTests --projects movie-client-shell
+  ./mvnw clean package --projects movie-client-shell -DskipTests
   ```
 
   To start `movie-client-shell`, run the profile's command you picked to run `movie-server`
