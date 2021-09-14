@@ -13,5 +13,4 @@ public class MovieServerWebClientConfig {
                         @Value("${movie-server.rest.port:8080}") int movieServerRestPort) {
         return WebClient.create(String.format("http://%s:%s/api/movies", movieServerHost, movieServerRestPort));
     }
-
 }

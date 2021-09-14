@@ -11,5 +11,4 @@ public class MovieUpdateMessage {
     private LocalDateTime timestamp;
     private String imdb;
     private String payload;
-
 }

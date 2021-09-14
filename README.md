@@ -85,7 +85,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   docker-compose up -d
   ```
 
-- Wait until `mongodb` is Up (healthy). You can check the status by running
+- Wait for `mongodb` Docker container to be with status `running (healthy)`. You can check it by running
   ```
   docker-compose ps
   ```
@@ -94,7 +94,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 - **movie-server**
 
-  Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run one of the following commands
+  Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run one of the following profile's command
   
   | Profile           | Command                                                                                           |
   | ----------------- | ------------------------------------------------------------------------------------------------- |
@@ -109,7 +109,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   ./mvnw clean package -DskipTests --projects movie-client-shell
   ```
 
-  To start `movie-client-shell` run one of the following commands (it should match with the one picked to run `movie-server`)
+  To start `movie-client-shell`, run the profile's command you picked to run `movie-server`
   
   | Profile           | Commands                                                                                                    |
   | ----------------- | ----------------------------------------------------------------------------------------------------------- |
@@ -119,7 +119,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 - **movie-client-ui**
 
-  Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run one of the following commands (it should match with the one picked to run `movie-server`)
+  Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the profile's command you picked to run `movie-server`
   
   | Profile           | Command                                                                                              |
   | ----------------- | ---------------------------------------------------------------------------------------------------- |
@@ -326,10 +326,6 @@ To remove the Docker images created by this project, go to a terminal and, insid
 ```
 ./remove-docker-images.sh
 ```
-
-## TODO
-
-- Add authentication and authorization using `Keycloak`
 
 ## References
 

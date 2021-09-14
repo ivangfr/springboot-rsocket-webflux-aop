@@ -28,5 +28,4 @@ public class GsonConfig {
             return new JsonPrimitive(localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         }
     }
-
 }

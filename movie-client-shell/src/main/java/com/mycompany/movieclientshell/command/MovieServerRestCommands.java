@@ -81,5 +81,4 @@ public class MovieServerRestCommands {
                 .block();
         return "Dislike submitted";
     }
-
 }

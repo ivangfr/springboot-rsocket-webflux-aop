@@ -44,5 +44,4 @@ public class MovieServiceImpl implements MovieService {
         movie.setDislikes(movie.getDislikes() + 1);
         return movieRepository.save(movie).then(Mono.just(movie));
     }
-
 }

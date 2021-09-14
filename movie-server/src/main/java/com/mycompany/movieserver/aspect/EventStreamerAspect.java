@@ -105,5 +105,4 @@ public class EventStreamerAspect {
     }
 
     private static final String MOVIES_UPDATES_ROUTE = "movies.updates";
-
 }

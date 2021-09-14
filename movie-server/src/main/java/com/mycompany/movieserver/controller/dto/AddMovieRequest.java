@@ -13,5 +13,4 @@ public class AddMovieRequest {
 
     @Size(min = 1, max = 30)
     private String title;
-
 }

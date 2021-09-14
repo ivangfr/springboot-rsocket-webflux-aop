@@ -12,5 +12,4 @@ public class MovieDto {
     private LocalDateTime lastModifiedDate;
     private Integer likes;
     private Integer dislikes;
-
 }

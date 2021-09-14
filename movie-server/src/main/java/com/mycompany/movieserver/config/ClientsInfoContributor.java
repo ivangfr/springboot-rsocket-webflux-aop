@@ -24,5 +24,4 @@ public class ClientsInfoContributor implements InfoContributor {
         details.put("ids", clientIds);
         builder.withDetail("clients", details);
     }
-
 }

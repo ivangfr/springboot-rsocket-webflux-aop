@@ -19,5 +19,4 @@ public class Movie {
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
-
 }

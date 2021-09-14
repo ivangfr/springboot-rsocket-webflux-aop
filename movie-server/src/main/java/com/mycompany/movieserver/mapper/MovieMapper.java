@@ -8,5 +8,4 @@ import org.mapstruct.Mapper;
 public interface MovieMapper {
 
     Movie toMovie(AddMovieRequest addMovieRequest);
-
 }

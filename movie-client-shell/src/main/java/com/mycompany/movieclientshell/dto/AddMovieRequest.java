@@ -11,5 +11,4 @@ public class AddMovieRequest {
 
     private String imdb;
     private String title;
-
 }

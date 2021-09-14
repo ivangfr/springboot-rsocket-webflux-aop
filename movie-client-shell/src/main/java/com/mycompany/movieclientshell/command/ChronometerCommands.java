@@ -29,5 +29,4 @@ public class ChronometerCommands {
             return String.format("---\nExecution time: %sms\n---", System.currentTimeMillis() - t);
         }
     }
-
 }

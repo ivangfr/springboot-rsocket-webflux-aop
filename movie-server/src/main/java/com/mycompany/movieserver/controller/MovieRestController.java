@@ -64,5 +64,4 @@ public class MovieRestController {
     public void dislikeMovie(@PathVariable String imdb) {
         movieService.getMovie(imdb).flatMap(movieService::dislikeMovie).subscribe();
     }
-
 }

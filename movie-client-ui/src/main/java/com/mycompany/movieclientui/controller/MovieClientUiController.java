@@ -23,5 +23,4 @@ public class MovieClientUiController {
 
     private static final String RSOCKET_FRAME_TYPE = RSocketFrameTypeMessageCondition.FRAME_TYPE_HEADER;
     private static final String CONTENT_TYPE = "contentType";
-
 }

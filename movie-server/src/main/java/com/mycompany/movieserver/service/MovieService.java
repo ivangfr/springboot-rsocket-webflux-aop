@@ -17,5 +17,4 @@ public interface MovieService {
     Mono<Movie> likeMovie(Movie movie);
 
     Mono<Movie> dislikeMovie(Movie movie);
-
 }

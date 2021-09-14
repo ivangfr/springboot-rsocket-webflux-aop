@@ -11,5 +11,4 @@ class MovieClientShellApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

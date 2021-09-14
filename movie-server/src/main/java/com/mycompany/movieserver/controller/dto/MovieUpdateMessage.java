@@ -17,5 +17,4 @@ public class MovieUpdateMessage {
     public enum Action {
         ADDED, DELETED, LIKED, DISLIKED
     }
-
 }

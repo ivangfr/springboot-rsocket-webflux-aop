@@ -12,5 +12,4 @@ public class MovieClientPromptProvider implements PromptProvider {
     public AttributedString getPrompt() {
         return new AttributedString("movie-client-shell> ", AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
     }
-
 }
