@@ -50,7 +50,7 @@ public class MovieServerRSocketConfig {
     private RSocketRequester createRSocketRequester(RSocketRequester.Builder rSocketRequesterBuilder,
                                                     RSocketStrategies rSocketStrategies,
                                                     ClientTransport clientTransport) {
-        String clientId = String.format("%s.%s", applicationName, UUID.randomUUID().toString());
+        String clientId = String.format("%s.%s", applicationName, UUID.randomUUID());
 
         RetryBackoffSpec retryBackoffSpec = Retry.fixedDelay(120, Duration.ofSeconds(1))
                 .doBeforeRetry(retrySignal -> log.warn("Reconnecting... {}", retrySignal));

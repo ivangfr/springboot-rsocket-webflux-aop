@@ -57,7 +57,7 @@ public class MovieServerRSocketConfig {
     private RSocketRequester createRSocketRequester(RSocketRequester.Builder rSocketRequesterBuilder,
                                                     RSocketStrategies rSocketStrategies,
                                                     ClientTransport clientTransport) {
-        String clientId = String.format("%s.%s", applicationName, UUID.randomUUID().toString());
+        String clientId = String.format("%s.%s", applicationName, UUID.randomUUID());
         log.info("Connecting using client ID: {}", clientId);
 
         SocketAcceptor socketAcceptor = RSocketMessageHandler.responder(rSocketStrategies, movieClientUiController);
