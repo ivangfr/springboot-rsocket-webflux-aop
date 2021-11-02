@@ -4,7 +4,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
 ## Project Architecture
 
-![project-diagram](images/project-diagram.png)
+![project-diagram](documentation/project-diagram.png)
 
 ## Applications
 
@@ -31,7 +31,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   
   The picture below show those commands
   
-  ![movie-client-shell](images/movie-client-shell.png)
+  ![movie-client-shell](documentation/movie-client-shell.png)
 
   It has the following profiles:
   
@@ -50,7 +50,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
   `Spring Boot` Java Web application that uses [`Thymeleaf`](https://www.thymeleaf.org/) and `Websocket` to show at real-time all the events generated when movies are added, deleted, liked and disliked.
 
-  ![movie-client-ui](images/movie-client-ui.png)
+  ![movie-client-ui](documentation/movie-client-ui.png)
 
   `movie-client-ui` has the following profiles:
   
@@ -70,11 +70,11 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
 The GIF below shows a user running some commands in `movie-client-shell`, terminal on the right. In the right-top terminal is running `movie-server` and in the right-bottom, `movie-client-ui`. On the background, there's a browser where movie events are displayed. 
 
-![demo](images/demo.gif)
+![demo](documentation/demo.gif)
 
 ## Prerequisites
 
-- [`Java 11+`](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+- [`Java 11+`](https://www.oracle.com/java/technologies/downloads/#java11)
 - [`Docker`](https://www.docker.com/)
 - [`Docker-Compose`](https://docs.docker.com/compose/install/)
 
@@ -85,7 +85,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
   docker-compose up -d
   ```
 
-- Wait for `mongodb` Docker container to be with status `running (healthy)`. You can check it by running
+- Wait for `mongodb` Docker container to be up and running. To check it, run
   ```
   docker-compose ps
   ```
@@ -300,8 +300,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
   Find all movies
   ```
-  docker exec -it mongodb mongo
-  use moviedb
+  docker exec -it mongodb mongo moviedb
   db.movies.find()
   ```
   > Type `exit` to get out of `MongoDB` shell
