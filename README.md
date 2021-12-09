@@ -340,44 +340,79 @@ After building the Docker native image successfully, an exception is thrown at s
 ```
 ERROR 1 --- [           main] o.s.boot.SpringApplication               : Application run failed
 
-org.springframework.context.ApplicationContextException: Unable to start reactive web server; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'nettyReactiveWebServerFactory' defined in class path resource [org/springframework/boot/autoconfigure/web/reactive/ReactiveWebServerFactoryConfiguration$EmbeddedNetty.class]: Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reactiveWebServerFactoryCustomizer' defined in class path resource [org/springframework/boot/autoconfigure/web/reactive/ReactiveWebServerFactoryAutoConfiguration.class]: Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.boot.web.server.WebServerFactoryCustomizer, interface org.springframework.core.Ordered] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
-	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.onRefresh(ReactiveWebServerApplicationContext.java:82) ~[na:na]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:577) ~[na:na]
-	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:64) ~[na:na]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[com.mycompany.movieserver.MovieServerApplication:2.5.6]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[com.mycompany.movieserver.MovieServerApplication:2.5.6]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) ~[com.mycompany.movieserver.MovieServerApplication:2.5.6]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[com.mycompany.movieserver.MovieServerApplication:2.5.6]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332) ~[com.mycompany.movieserver.MovieServerApplication:2.5.6]
-	at com.mycompany.movieserver.MovieServerApplication.main(MovieServerApplication.java:10) ~[com.mycompany.movieserver.MovieServerApplication:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'nettyReactiveWebServerFactory' defined in class path resource [org/springframework/boot/autoconfigure/web/reactive/ReactiveWebServerFactoryConfiguration$EmbeddedNetty.class]: Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reactiveWebServerFactoryCustomizer' defined in class path resource [org/springframework/boot/autoconfigure/web/reactive/ReactiveWebServerFactoryAutoConfiguration.class]: Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.boot.web.server.WebServerFactoryCustomizer, interface org.springframework.core.Ordered] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:628) ~[na:na]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[na:na]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[na:na]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[na:na]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[na:na]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213) ~[na:na]
-	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.getWebServerFactory(ReactiveWebServerApplicationContext.java:119) ~[na:na]
-	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.createWebServer(ReactiveWebServerApplicationContext.java:91) ~[na:na]
-	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.onRefresh(ReactiveWebServerApplicationContext.java:79) ~[na:na]
-	... 8 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'reactiveWebServerFactoryCustomizer' defined in class path resource [org/springframework/boot/autoconfigure/web/reactive/ReactiveWebServerFactoryAutoConfiguration.class]: Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.boot.web.server.WebServerFactoryCustomizer, interface org.springframework.core.Ordered] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:628) ~[na:na]
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieRSocketController': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieServiceImpl': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#5e481fec' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#5e481fec': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:90) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedElementResolver.resolve(InjectedElementResolver.java:19) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedElementResolver.create(InjectedElementResolver.java:50) ~[na:na]
+	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar$InstanceSupplierContext.create(BeanDefinitionRegistrar.java:168) ~[na:na]
+	at org.springframework.aot.ContextBootstrapInitializer.lambda$initialize$5(ContextBootstrapInitializer.java:265) ~[na:na]
+	at org.springframework.aot.beans.factory.ThrowableFunction.apply(ThrowableFunction.java:18) ~[na:na]
+	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar.lambda$instanceSupplier$0(BeanDefinitionRegistrar.java:82) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.obtainFromSupplier(AbstractAutowireCapableBeanFactory.java:1249) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582) ~[na:na]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[na:na]
 	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[na:na]
 	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[na:na]
 	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[na:na]
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[na:na]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:671) ~[na:na]
-	at org.springframework.boot.web.server.WebServerFactoryCustomizerBeanPostProcessor.getWebServerFactoryCustomizerBeans(WebServerFactoryCustomizerBeanPostProcessor.java:87) ~[com.mycompany.movieserver.MovieServerApplication:2.5.6]
-	at org.springframework.boot.web.server.WebServerFactoryCustomizerBeanPostProcessor.getCustomizers(WebServerFactoryCustomizerBeanPostProcessor.java:78) ~[com.mycompany.movieserver.MovieServerApplication:2.5.6]
-	at org.springframework.boot.web.server.WebServerFactoryCustomizerBeanPostProcessor.postProcessBeforeInitialization(WebServerFactoryCustomizerBeanPostProcessor.java:70) ~[com.mycompany.movieserver.MovieServerApplication:2.5.6]
-	at org.springframework.boot.web.server.WebServerFactoryCustomizerBeanPostProcessor.postProcessBeforeInitialization(WebServerFactoryCustomizerBeanPostProcessor.java:58) ~[com.mycompany.movieserver.MovieServerApplication:2.5.6]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:440) ~[na:na]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1796) ~[na:na]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[na:na]
-	... 16 common frames omitted
-Caused by: com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.boot.web.server.WebServerFactoryCustomizer, interface org.springframework.core.Ordered] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:944) ~[na:na]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[na:na]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[na:na]
+	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:64) ~[na:na]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730) ~[com.mycompany.movieserver.MovieServerApplication:2.6.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:412) ~[com.mycompany.movieserver.MovieServerApplication:2.6.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302) ~[com.mycompany.movieserver.MovieServerApplication:2.6.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301) ~[com.mycompany.movieserver.MovieServerApplication:2.6.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1290) ~[com.mycompany.movieserver.MovieServerApplication:2.6.1]
+	at com.mycompany.movieserver.MovieServerApplication.main(MovieServerApplication.java:10) ~[com.mycompany.movieserver.MovieServerApplication:na]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieServiceImpl': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#5e481fec' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#5e481fec': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:90) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedElementResolver.resolve(InjectedElementResolver.java:19) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedElementResolver.create(InjectedElementResolver.java:50) ~[na:na]
+	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar$InstanceSupplierContext.create(BeanDefinitionRegistrar.java:168) ~[na:na]
+	at org.springframework.aot.ContextBootstrapInitializer.lambda$initialize$9(ContextBootstrapInitializer.java:271) ~[na:na]
+	at org.springframework.aot.beans.factory.ThrowableFunction.apply(ThrowableFunction.java:18) ~[na:na]
+	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar.lambda$instanceSupplier$0(BeanDefinitionRegistrar.java:82) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.obtainFromSupplier(AbstractAutowireCapableBeanFactory.java:1249) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[na:na]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1380) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1300) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.lambda$resolve$0(InjectedConstructionResolver.java:85) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolveDependency(InjectedConstructionResolver.java:99) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:85) ~[na:na]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#5e481fec' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#5e481fec': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:389) ~[na:na]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:134) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1707) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1452) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[na:na]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1380) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1300) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.lambda$resolve$0(InjectedConstructionResolver.java:85) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolveDependency(InjectedConstructionResolver.java:99) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:85) ~[na:na]
+	... 44 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#5e481fec': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:628) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[na:na]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:374) ~[na:na]
+	... 59 common frames omitted
+Caused by: com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
 	at com.oracle.svm.core.util.VMError.unsupportedFeature(VMError.java:87) ~[na:na]
 	at com.oracle.svm.reflect.proxy.DynamicProxySupport.getProxyClass(DynamicProxySupport.java:146) ~[na:na]
 	at java.lang.reflect.Proxy.getProxyConstructor(Proxy.java:66) ~[com.mycompany.movieserver.MovieServerApplication:na]
@@ -388,67 +423,79 @@ Caused by: com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined 
 	at org.springframework.aop.support.AopUtils.canApply(AopUtils.java:251) ~[na:na]
 	at org.springframework.aop.support.AopUtils.canApply(AopUtils.java:289) ~[na:na]
 	at org.springframework.aop.support.AopUtils.findAdvisorsThatCanApply(AopUtils.java:321) ~[na:na]
-	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findAdvisorsThatCanApply(AbstractAdvisorAutoProxyCreator.java:128) ~[com.mycompany.movieserver.MovieServerApplication:5.3.12]
-	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findEligibleAdvisors(AbstractAdvisorAutoProxyCreator.java:97) ~[com.mycompany.movieserver.MovieServerApplication:5.3.12]
-	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.getAdvicesAndAdvisorsForBean(AbstractAdvisorAutoProxyCreator.java:78) ~[com.mycompany.movieserver.MovieServerApplication:5.3.12]
-	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.wrapIfNecessary(AbstractAutoProxyCreator.java:339) ~[com.mycompany.movieserver.MovieServerApplication:5.3.12]
-	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.postProcessAfterInitialization(AbstractAutoProxyCreator.java:291) ~[com.mycompany.movieserver.MovieServerApplication:5.3.12]
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findAdvisorsThatCanApply(AbstractAdvisorAutoProxyCreator.java:128) ~[com.mycompany.movieserver.MovieServerApplication:5.3.13]
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findEligibleAdvisors(AbstractAdvisorAutoProxyCreator.java:97) ~[com.mycompany.movieserver.MovieServerApplication:5.3.13]
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.getAdvicesAndAdvisorsForBean(AbstractAdvisorAutoProxyCreator.java:78) ~[com.mycompany.movieserver.MovieServerApplication:5.3.13]
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.wrapIfNecessary(AbstractAutoProxyCreator.java:339) ~[com.mycompany.movieserver.MovieServerApplication:5.3.13]
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.postProcessAfterInitialization(AbstractAutoProxyCreator.java:291) ~[com.mycompany.movieserver.MovieServerApplication:5.3.13]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsAfterInitialization(AbstractAutowireCapableBeanFactory.java:455) ~[na:na]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1808) ~[na:na]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[na:na]
-	... 29 common frames omitted
+	... 61 common frames omitted
+```
+
+#### movie-client-ui
+
+After building the Docker native image successfully, an exception is thrown at startup time when running with `default` or `rsocket-websocket` profile. With `rsocket-tcp`, it starts ok. 
+```
+ERROR 1 --- [           main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'rSocketRequesterTcp': Unexpected exception during bean creation; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder 'movie-server.rsocket.port' in value "${movie-server.rsocket.port}"
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:555) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:944) ~[na:na]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[na:na]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[na:na]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145) ~[na:na]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730) ~[com.mycompany.movieclientui.MovieClientUiApplication:2.6.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:412) ~[com.mycompany.movieclientui.MovieClientUiApplication:2.6.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302) ~[com.mycompany.movieclientui.MovieClientUiApplication:2.6.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301) ~[com.mycompany.movieclientui.MovieClientUiApplication:2.6.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1290) ~[com.mycompany.movieclientui.MovieClientUiApplication:2.6.1]
+	at com.mycompany.movieclientui.MovieClientUiApplication.main(MovieClientUiApplication.java:15) ~[com.mycompany.movieclientui.MovieClientUiApplication:na]
+Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'movie-server.rsocket.port' in value "${movie-server.rsocket.port}"
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:180) ~[na:na]
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:126) ~[na:na]
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:239) ~[na:na]
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:210) ~[na:na]
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:175) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:936) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1321) ~[na:na]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1300) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.lambda$resolve$0(InjectedConstructionResolver.java:85) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolveDependency(InjectedConstructionResolver.java:99) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:85) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedElementResolver.resolve(InjectedElementResolver.java:19) ~[na:na]
+	at org.springframework.aot.beans.factory.InjectedElementResolver.create(InjectedElementResolver.java:50) ~[na:na]
+	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar$InstanceSupplierContext.create(BeanDefinitionRegistrar.java:168) ~[na:na]
+	at com.mycompany.movieclientui.config.ContextBootstrapInitializer.lambda$registerMovieServerRSocketConfig_rSocketRequesterTcp$4(ContextBootstrapInitializer.java:30) ~[na:na]
+	at org.springframework.aot.beans.factory.ThrowableFunction.apply(ThrowableFunction.java:18) ~[na:na]
+	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar.lambda$instanceSupplier$0(BeanDefinitionRegistrar.java:82) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.obtainFromSupplier(AbstractAutowireCapableBeanFactory.java:1249) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582) ~[na:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[na:na]
+	... 14 common frames omitted
 ```
 
 #### movie-client-shell
 
 An exception is thrown while generating the jar file
 ```
-[INFO] Spring Native operating mode: native
-[WARNING] Failed verification check: Invalid attempt to add bundle to configuration, no bundles found for this pattern: org.aspectj.weaver.weaver-messages
-[ERROR] java.lang.IllegalStateException: ERROR: in 'org.springframework.shell.jline.JLineShellAutoConfiguration' these methods are directly invoking methods marked @Bean: [interactiveApplicationRunner, lineReader, lineReader, lineReader] - due to the enforced proxyBeanMethods=false for components in a native-image, please consider refactoring to use instance injection. If you are confident this is not going to affect your application, you may turn this check off using -Dspring.native.verify=false.
-[ERROR] [org.springframework.nativex.type.Type.verifyComponent(Type.java:2519),
-  org.springframework.nativex.support.ResourcesHandler.processType(ResourcesHandler.java:1340),
-  org.springframework.nativex.support.ResourcesHandler.processType(ResourcesHandler.java:1007),
-  org.springframework.nativex.support.ResourcesHandler.checkAndRegisterConfigurationType(ResourcesHandler.java:997),
-  org.springframework.nativex.support.ResourcesHandler.processFactoriesKey(ResourcesHandler.java:925),
-  org.springframework.nativex.support.ResourcesHandler.processSpringFactory(ResourcesHandler.java:874),
-  org.springframework.nativex.support.ResourcesHandler.processSpringFactories(ResourcesHandler.java:697),
-  org.springframework.nativex.support.ResourcesHandler.register(ResourcesHandler.java:114),
-  org.springframework.nativex.support.SpringAnalyzer.analyze(SpringAnalyzer.java:87),
-  org.springframework.aot.nativex.ConfigurationContributor.contribute(ConfigurationContributor.java:70),
-  org.springframework.aot.BootstrapCodeGenerator.generate(BootstrapCodeGenerator.java:77),
-  org.springframework.aot.maven.TestGenerateMojo.execute(TestGenerateMojo.java:65),
-  org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137),
-  org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:210),
-  org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156),
-  org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148),
-  org.apache.maven.lifecycle.internal.MojoExecutor.executeForkedExecutions(MojoExecutor.java:355),
-  org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:200),
-  org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:156),
-  org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:148),
-  org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117),
-  org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81),
-  org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56),
-  org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128),
-  org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305),
-  org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192),
-  org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105),
-  org.apache.maven.cli.MavenCli.execute(MavenCli.java:972),
-  org.apache.maven.cli.MavenCli.doMain(MavenCli.java:293),
-  org.apache.maven.cli.MavenCli.main(MavenCli.java:196),
-  java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method),
-  java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62),
-  java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43),
-  java.base/java.lang.reflect.Method.invoke(Method.java:566),
-  org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:282),
-  org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:225),
-  org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:406),
-  org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:347),
-  java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method),
-  java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62),
-  java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43),
-  java.base/java.lang.reflect.Method.invoke(Method.java:566),
-  org.apache.maven.wrapper.BootstrapMainStarter.start(BootstrapMainStarter.java:39),
-  org.apache.maven.wrapper.WrapperExecutor.execute(WrapperExecutor.java:122),
-  org.apache.maven.wrapper.MavenWrapperMain.main(MavenWrapperMain.java:61)]
+...
+INFO 11514 --- [           main] o.s.nativex.support.SpringAnalyzer       : Spring Native operating mode: native
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 53 source files to /springboot-rsocket-webflux-aop/movie-client-shell/target/test-classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR :
+[INFO] -------------------------------------------------------------
+[ERROR] /springboot-rsocket-webflux-aop/movie-client-shell/target/generated-test-sources/spring-aot/src/test/java/org/springframework/aot/MovieClientShellApplicationTestsContextInitializer.java:[115,39] cannot find symbol
+  symbol:   class JLineShellAutoConfiguration$HistoryConfiguration$$EnhancerBySpringCGLIB$$53a5ca59
+  location: package org.springframework.shell.jline
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+...
 ```
