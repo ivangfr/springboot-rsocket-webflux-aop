@@ -31,7 +31,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
   
   The picture below show those commands
   
-  ![movie-client-shell](documentation/movie-client-shell.png)
+  ![movie-client-shell](documentation/movie-client-shell.jpeg)
 
   It has the following profiles:
   
@@ -50,7 +50,7 @@ The goal of this project is to play with [`RSocket`](https://rsocket.io/) protoc
 
   `Spring Boot` Java Web application that uses [`Thymeleaf`](https://www.thymeleaf.org/) and `Websocket` to show at real-time all the events generated when movies are added, deleted, liked and disliked.
 
-  ![movie-client-ui](documentation/movie-client-ui.png)
+  ![movie-client-ui](documentation/movie-client-ui.jpeg)
 
   `movie-client-ui` has the following profiles:
   
@@ -300,7 +300,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
   Find all movies
   ```
-  docker exec -it mongodb mongo moviedb
+  docker exec -it mongodb mongosh moviedb
   db.movies.find()
   ```
   > Type `exit` to get out of `MongoDB` shell
@@ -340,7 +340,7 @@ After building the Docker native image successfully, an exception is thrown at s
 ```
 ERROR 1 --- [           main] o.s.boot.SpringApplication               : Application run failed
 
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieRSocketController': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieServiceImpl': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#565cc52a' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#565cc52a': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieRSocketController': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieServiceImpl': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#3ba12110' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#3ba12110': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
 	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:88) ~[na:na]
 	at org.springframework.aot.beans.factory.InjectedElementResolver.resolve(InjectedElementResolver.java:35) ~[com.ivanfranchin.movieserver.MovieServerApplication:0.12.1]
 	at org.springframework.aot.beans.factory.InjectedElementResolver.create(InjectedElementResolver.java:66) ~[com.ivanfranchin.movieserver.MovieServerApplication:0.12.1]
@@ -359,14 +359,14 @@ org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating
 	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
 	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:66) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.2]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.2]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.2]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.2]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.2]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.2]
+	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:66) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
 	at com.ivanfranchin.movieserver.MovieServerApplication.main(MovieServerApplication.java:10) ~[com.ivanfranchin.movieserver.MovieServerApplication:na]
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieServiceImpl': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#565cc52a' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#565cc52a': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieServiceImpl': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#3ba12110' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#3ba12110': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
 	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:88) ~[na:na]
 	at org.springframework.aot.beans.factory.InjectedElementResolver.resolve(InjectedElementResolver.java:35) ~[com.ivanfranchin.movieserver.MovieServerApplication:0.12.1]
 	at org.springframework.aot.beans.factory.InjectedElementResolver.create(InjectedElementResolver.java:66) ~[com.ivanfranchin.movieserver.MovieServerApplication:0.12.1]
@@ -389,7 +389,7 @@ Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Err
 	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolveDependency(InjectedConstructionResolver.java:97) ~[na:na]
 	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:83) ~[na:na]
 	... 24 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#565cc52a' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#565cc52a': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#3ba12110' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#3ba12110': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:389) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:134) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1707) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
@@ -407,7 +407,7 @@ Caused by: org.springframework.beans.factory.BeanCreationException: Error creati
 	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolveDependency(InjectedConstructionResolver.java:97) ~[na:na]
 	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:83) ~[na:na]
 	... 44 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#565cc52a': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#3ba12110': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:628) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
 	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:374) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
@@ -438,7 +438,7 @@ I've tried to add the not found interface (`org.springframework.beans.factory.Fa
 
 #### movie-client-ui
 
-After building and starting the Docker native image successfully, the app looks fine (i.e., we can open the page, websocket is connecting, etc).
+After building and starting the Docker native image successfully, the app looks fine (i.e., we can open the page, websocket is connected, etc).
 
 However, after submitting some `add-movie-(rest or rsocket)` commands using JVM version of `movie-client-shell` and `movie-server`, nothing happens in the `movie-client-ui`.
 
@@ -447,9 +447,10 @@ It looks like the endpoint `moviesUpdates`, in `MovieClientUiController` class, 
 #### movie-client-shell
 
 After building the Docker native image and running it successfully, we have some problems such as
-- there is the following WARN
+- there is the following WARNs
   ```
   Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+  The Parser of class org.springframework.shell.jline.ExtendedDefaultParser does not support the CompletingParsedLine interface. Completion with escaped or quoted words won't work correctly.
   ```
 - the autocomplete is not working;
 - the script files `simulation-rest.txt` and `simulation-rsocket.txt` are not present.
