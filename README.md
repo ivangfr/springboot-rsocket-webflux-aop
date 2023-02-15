@@ -336,121 +336,58 @@ To remove the Docker images created by this project, go to a terminal and, insid
 
 #### movie-server
 
-After building the Docker native image successfully, an exception is thrown at startup time
-```
-ERROR 1 --- [           main] o.s.boot.SpringApplication               : Application run failed
-
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieRSocketController': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieServiceImpl': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#3ba12110' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#3ba12110': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
-	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:88) ~[na:na]
-	at org.springframework.aot.beans.factory.InjectedElementResolver.resolve(InjectedElementResolver.java:35) ~[com.ivanfranchin.movieserver.MovieServerApplication:0.12.1]
-	at org.springframework.aot.beans.factory.InjectedElementResolver.create(InjectedElementResolver.java:66) ~[com.ivanfranchin.movieserver.MovieServerApplication:0.12.1]
-	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar$BeanInstanceContext.create(BeanDefinitionRegistrar.java:211) ~[na:na]
-	at org.springframework.aot.ContextBootstrapInitializer.lambda$initialize$5(ContextBootstrapInitializer.java:267) ~[na:na]
-	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar$ThrowableFunction.apply(BeanDefinitionRegistrar.java:294) ~[com.ivanfranchin.movieserver.MovieServerApplication:0.12.1]
-	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar.lambda$instanceSupplier$0(BeanDefinitionRegistrar.java:115) ~[na:na]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.obtainFromSupplier(AbstractAutowireCapableBeanFactory.java:1249) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.boot.web.reactive.context.ReactiveWebServerApplicationContext.refresh(ReactiveWebServerApplicationContext.java:66) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[com.ivanfranchin.movieserver.MovieServerApplication:2.7.3]
-	at com.ivanfranchin.movieserver.MovieServerApplication.main(MovieServerApplication.java:10) ~[com.ivanfranchin.movieserver.MovieServerApplication:na]
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'movieServiceImpl': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#3ba12110' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#3ba12110': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
-	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:88) ~[na:na]
-	at org.springframework.aot.beans.factory.InjectedElementResolver.resolve(InjectedElementResolver.java:35) ~[com.ivanfranchin.movieserver.MovieServerApplication:0.12.1]
-	at org.springframework.aot.beans.factory.InjectedElementResolver.create(InjectedElementResolver.java:66) ~[com.ivanfranchin.movieserver.MovieServerApplication:0.12.1]
-	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar$BeanInstanceContext.create(BeanDefinitionRegistrar.java:211) ~[na:na]
-	at org.springframework.aot.ContextBootstrapInitializer.lambda$initialize$9(ContextBootstrapInitializer.java:273) ~[na:na]
-	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar$ThrowableFunction.apply(BeanDefinitionRegistrar.java:294) ~[com.ivanfranchin.movieserver.MovieServerApplication:0.12.1]
-	at org.springframework.aot.beans.factory.BeanDefinitionRegistrar.lambda$instanceSupplier$0(BeanDefinitionRegistrar.java:115) ~[na:na]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.obtainFromSupplier(AbstractAutowireCapableBeanFactory.java:1249) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.aot.beans.factory.InjectedConstructionResolver.lambda$resolve$0(InjectedConstructionResolver.java:83) ~[na:na]
-	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolveDependency(InjectedConstructionResolver.java:97) ~[na:na]
-	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:83) ~[na:na]
-	... 24 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'movieRepository': Cannot create inner bean '(inner bean)#3ba12110' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] while setting bean property 'repositoryFragments'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#3ba12110': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:389) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:134) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1707) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1452) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.aot.beans.factory.InjectedConstructionResolver.lambda$resolve$0(InjectedConstructionResolver.java:83) ~[na:na]
-	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolveDependency(InjectedConstructionResolver.java:97) ~[na:na]
-	at org.springframework.aot.beans.factory.InjectedConstructionResolver.resolve(InjectedConstructionResolver.java:83) ~[na:na]
-	... 44 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#3ba12110': Initialization of bean failed; nested exception is com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:628) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:374) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	... 59 common frames omitted
-Caused by: com.oracle.svm.core.jdk.UnsupportedFeatureError: Proxy class defined by interfaces [interface org.springframework.beans.factory.FactoryBean, interface org.springframework.beans.factory.BeanFactoryAware, interface org.springframework.beans.factory.InitializingBean] not found. Generating proxy classes at runtime is not supported. Proxy classes need to be defined at image build time by specifying the list of interfaces that they implement. To define proxy classes use -H:DynamicProxyConfigurationFiles=<comma-separated-config-files> and -H:DynamicProxyConfigurationResources=<comma-separated-config-resources> options.
-	at com.oracle.svm.core.util.VMError.unsupportedFeature(VMError.java:89) ~[na:na]
-	at com.oracle.svm.reflect.proxy.DynamicProxySupport.getProxyClass(DynamicProxySupport.java:158) ~[na:na]
-	at java.lang.reflect.Proxy.getProxyConstructor(Proxy.java:48) ~[com.ivanfranchin.movieserver.MovieServerApplication:na]
-	at java.lang.reflect.Proxy.getProxyClass(Proxy.java:398) ~[com.ivanfranchin.movieserver.MovieServerApplication:na]
-	at org.springframework.util.ClassUtils.createCompositeInterface(ClassUtils.java:784) ~[na:na]
-	at org.springframework.aop.aspectj.AspectJExpressionPointcut.getTargetShadowMatch(AspectJExpressionPointcut.java:437) ~[na:na]
-	at org.springframework.aop.aspectj.AspectJExpressionPointcut.matches(AspectJExpressionPointcut.java:295) ~[na:na]
-	at org.springframework.aop.support.AopUtils.canApply(AopUtils.java:251) ~[na:na]
-	at org.springframework.aop.support.AopUtils.canApply(AopUtils.java:289) ~[na:na]
-	at org.springframework.aop.support.AopUtils.findAdvisorsThatCanApply(AopUtils.java:321) ~[na:na]
-	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findAdvisorsThatCanApply(AbstractAdvisorAutoProxyCreator.java:128) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findEligibleAdvisors(AbstractAdvisorAutoProxyCreator.java:97) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.getAdvicesAndAdvisorsForBean(AbstractAdvisorAutoProxyCreator.java:78) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.wrapIfNecessary(AbstractAutoProxyCreator.java:341) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.postProcessAfterInitialization(AbstractAutoProxyCreator.java:293) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsAfterInitialization(AbstractAutowireCapableBeanFactory.java:455) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1808) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620) ~[com.ivanfranchin.movieserver.MovieServerApplication:5.3.22]
-	... 61 common frames omitted
-```
-
-I've tried to add the not found interface (`org.springframework.beans.factory.FactoryBean`, `org.springframework.beans.factory.BeanFactoryAware` and `org.springframework.beans.factory.InitializingBean`) using `@AotProxyHint` but, the image is not even compiling.
+Docker native image builds and starts up successfully. However, it doesn't accept connections when using JVM version of `movie-client-ui` and `movie-client-shell`.  
 
 #### movie-client-ui
 
-After building and starting the Docker native image successfully, the app looks fine (i.e., we can open the page, websocket is connected, etc).
-
-However, after submitting some `add-movie-(rest or rsocket)` commands using JVM version of `movie-client-shell` and `movie-server`, nothing happens in the `movie-client-ui`.
-
-It looks like the endpoint `moviesUpdates`, in `MovieClientUiController` class, is not working in native image.
+After building and starting the Docker native image successfully, the app looks fine (i.e., we can open the page, websocket is connected, etc). However, it is not connecting to `movie-server`.
 
 #### movie-client-shell
 
 After building the Docker native image and running it successfully, we have some problems such as
-- there is the following WARNs
+- there is the following WARN
   ```
   Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
-  The Parser of class org.springframework.shell.jline.ExtendedDefaultParser does not support the CompletingParsedLine interface. Completion with escaped or quoted words won't work correctly.
   ```
 - the autocomplete is not working;
-- the script files `simulation-rest.txt` and `simulation-rsocket.txt` are not present.
+- when tried to run one of script files (`simulation-rest.txt` or `simulation-rsocket.txt`) there is the following exception
+```
+movie-client-shell> script /app/resources/simulation-rest.txt
+Failed to convert from type [java.util.ArrayList<?>] to type [java.io.File] for value '[/app/resources/simulation-rest.txt]'
+Details of the error have been omitted. You can use the stacktrace command to print the full stacktrace.
+movie-client-shell> stacktrace
+org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.util.ArrayList<?>] to type [java.io.File] for value '[/app/resources/simulation-rest.txt]'
+	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:47)
+	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:192)
+	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:175)
+	at org.springframework.shell.command.CommandParser$DefaultCommandParser.convertOptionType(CommandParser.java:294)
+	at org.springframework.shell.command.CommandParser$DefaultCommandParser.lambda$parse$4(CommandParser.java:274)
+	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base@17.0.6/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base@17.0.6/java.util.stream.SortedOps$RefSortingSink.end(SortedOps.java:395)
+	at java.base@17.0.6/java.util.stream.Sink$ChainedReference.end(Sink.java:258)
+	at java.base@17.0.6/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
+	at java.base@17.0.6/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base@17.0.6/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base@17.0.6/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at org.springframework.shell.command.CommandParser$DefaultCommandParser.parse(CommandParser.java:249)
+	at org.springframework.shell.command.CommandExecution$DefaultCommandExecution.evaluate(CommandExecution.java:126)
+	at org.springframework.shell.Shell.evaluate(Shell.java:246)
+	at org.springframework.shell.Shell.run(Shell.java:158)
+	at org.springframework.shell.jline.InteractiveShellRunner.run(InteractiveShellRunner.java:73)
+	at org.springframework.shell.DefaultShellApplicationRunner.run(DefaultShellApplicationRunner.java:65)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:748)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1291)
+	at com.ivanfranchin.movieclientshell.MovieClientShellApplication.main(MovieClientShellApplication.java:10)
+Caused by: org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.lang.String] to type [java.io.File]
+	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:322)
+	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:195)
+	at org.springframework.core.convert.support.CollectionToObjectConverter.convert(CollectionToObjectConverter.java:66)
+	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:41)
+	... 26 more
+```

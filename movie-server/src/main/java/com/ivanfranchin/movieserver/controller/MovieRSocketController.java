@@ -4,6 +4,7 @@ import com.ivanfranchin.movieserver.controller.dto.AddMovieRequest;
 import com.ivanfranchin.movieserver.mapper.MovieMapper;
 import com.ivanfranchin.movieserver.model.Movie;
 import com.ivanfranchin.movieserver.service.MovieService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -14,8 +15,6 @@ import org.springframework.messaging.rsocket.annotation.support.RSocketFrameType
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller

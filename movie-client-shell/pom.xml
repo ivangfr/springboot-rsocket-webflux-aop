@@ -14,7 +14,7 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <spring-shell.version>2.1.1</spring-shell.version>
+        <spring-shell.version>3.0.0</spring-shell.version>
     </properties>
 
     <dependencies>
@@ -29,7 +29,6 @@
         <dependency>
             <groupId>org.springframework.shell</groupId>
             <artifactId>spring-shell-starter</artifactId>
-            <version>${spring-shell.version}</version>
         </dependency>
 
         <!-- Gson -->
