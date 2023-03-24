@@ -2,9 +2,9 @@
 
 The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications: `movie-server`, `movie-client-shell` and `movie-client-ui`. As storage, it's used the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/). All the streaming of movie events and the logging are handling by AOP (Aspect Oriented Programming).
 
-## Project Architecture
+## Project Diagram
 
-![project-diagram](documentation/project-diagram.png)
+![project-diagram](documentation/project-diagram.jpeg)
 
 ## Applications
 
@@ -74,7 +74,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 ## Prerequisites
 
-- [`Java 11+`](https://www.oracle.com/java/technologies/downloads/#java11)
+- [`Java 17+`](https://www.oracle.com/java/technologies/downloads/#java17)
 - [`Docker`](https://www.docker.com/)
 - [`Docker-Compose`](https://docs.docker.com/compose/install/)
 
@@ -336,7 +336,7 @@ To remove the Docker images created by this project, go to a terminal and, insid
 
 #### movie-server
 
-Docker native image builds and starts up successfully. However, it doesn't accept connections when using JVM version of `movie-client-ui` and `movie-client-shell`.  
+Docker native image builds and starts up successfully. However, it doesn't accept connections even using JVM version of `movie-client-ui` and `movie-client-shell`.  
 
 #### movie-client-ui
 
@@ -351,43 +351,43 @@ After building the Docker native image and running it successfully, we have some
   ```
 - the autocomplete is not working;
 - when tried to run one of script files (`simulation-rest.txt` or `simulation-rsocket.txt`) there is the following exception
-```
-movie-client-shell> script /app/resources/simulation-rest.txt
-Failed to convert from type [java.util.ArrayList<?>] to type [java.io.File] for value '[/app/resources/simulation-rest.txt]'
-Details of the error have been omitted. You can use the stacktrace command to print the full stacktrace.
-movie-client-shell> stacktrace
-org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.util.ArrayList<?>] to type [java.io.File] for value '[/app/resources/simulation-rest.txt]'
-	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:47)
-	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:192)
-	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:175)
-	at org.springframework.shell.command.CommandParser$DefaultCommandParser.convertOptionType(CommandParser.java:294)
-	at org.springframework.shell.command.CommandParser$DefaultCommandParser.lambda$parse$4(CommandParser.java:274)
-	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
-	at java.base@17.0.6/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base@17.0.6/java.util.stream.SortedOps$RefSortingSink.end(SortedOps.java:395)
-	at java.base@17.0.6/java.util.stream.Sink$ChainedReference.end(Sink.java:258)
-	at java.base@17.0.6/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
-	at java.base@17.0.6/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
-	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
-	at java.base@17.0.6/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-	at java.base@17.0.6/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
-	at org.springframework.shell.command.CommandParser$DefaultCommandParser.parse(CommandParser.java:249)
-	at org.springframework.shell.command.CommandExecution$DefaultCommandExecution.evaluate(CommandExecution.java:126)
-	at org.springframework.shell.Shell.evaluate(Shell.java:246)
-	at org.springframework.shell.Shell.run(Shell.java:158)
-	at org.springframework.shell.jline.InteractiveShellRunner.run(InteractiveShellRunner.java:73)
-	at org.springframework.shell.DefaultShellApplicationRunner.run(DefaultShellApplicationRunner.java:65)
-	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:758)
-	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:748)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1302)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1291)
-	at com.ivanfranchin.movieclientshell.MovieClientShellApplication.main(MovieClientShellApplication.java:10)
-Caused by: org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.lang.String] to type [java.io.File]
-	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:322)
-	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:195)
-	at org.springframework.core.convert.support.CollectionToObjectConverter.convert(CollectionToObjectConverter.java:66)
-	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:41)
-	... 26 more
-```
+  ```
+  movie-client-shell> script /app/resources/simulation-rest.txt
+  Failed to convert from type [java.util.ArrayList<?>] to type [java.io.File] for value '[/app/resources/simulation-rest.txt]'
+  Details of the error have been omitted. You can use the stacktrace command to print the full stacktrace.
+  movie-client-shell> stacktrace
+  org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.util.ArrayList<?>] to type [java.io.File] for value '[/app/resources/simulation-rest.txt]'
+  	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:47)
+  	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:192)
+  	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:175)
+  	at org.springframework.shell.command.CommandParser$DefaultCommandParser.convertOptionType(CommandParser.java:294)
+  	at org.springframework.shell.command.CommandParser$DefaultCommandParser.lambda$parse$4(CommandParser.java:274)
+  	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+  	at java.base@17.0.6/java.util.ArrayList.forEach(ArrayList.java:1511)
+  	at java.base@17.0.6/java.util.stream.SortedOps$RefSortingSink.end(SortedOps.java:395)
+  	at java.base@17.0.6/java.util.stream.Sink$ChainedReference.end(Sink.java:258)
+  	at java.base@17.0.6/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
+  	at java.base@17.0.6/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+  	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+  	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+  	at java.base@17.0.6/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+  	at java.base@17.0.6/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+  	at org.springframework.shell.command.CommandParser$DefaultCommandParser.parse(CommandParser.java:249)
+  	at org.springframework.shell.command.CommandExecution$DefaultCommandExecution.evaluate(CommandExecution.java:126)
+  	at org.springframework.shell.Shell.evaluate(Shell.java:246)
+  	at org.springframework.shell.Shell.run(Shell.java:158)
+  	at org.springframework.shell.jline.InteractiveShellRunner.run(InteractiveShellRunner.java:73)
+  	at org.springframework.shell.DefaultShellApplicationRunner.run(DefaultShellApplicationRunner.java:65)
+  	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:760)
+  	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:750)
+  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:317)
+  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304)
+  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293)
+  	at com.ivanfranchin.movieclientshell.MovieClientShellApplication.main(MovieClientShellApplication.java:10)
+  Caused by: org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.lang.String] to type [java.io.File]
+  	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:322)
+  	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:195)
+  	at org.springframework.core.convert.support.CollectionToObjectConverter.convert(CollectionToObjectConverter.java:66)
+  	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:41)
+  	... 26 more
+  ```
