@@ -80,18 +80,17 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 - [`Java 17+`](https://www.oracle.com/java/technologies/downloads/#java17)
 - [`Docker`](https://www.docker.com/)
-- [`Docker-Compose`](https://docs.docker.com/compose/install/)
 
 ## Start Environment
 
 - Open a terminal and inside `springboot-rsocket-webflux-aop` root folder run
   ```
-  docker-compose up -d
+  docker compose up -d
   ```
 
 - Wait for `mongodb` Docker container to be up and running. To check it, run
   ```
-  docker-compose ps
+  docker compose ps
   ```
 
 ## Running applications with Maven
@@ -318,9 +317,9 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
     ```
     ./stop-server-and-ui.sh
     ```
-- To stop and remove docker-compose `mongodb` container, network and volumes, go to a terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the command below
+- To stop and remove docker compose `mongodb` container, network and volumes, go to a terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the command below
   ```
-  docker-compose down -v
+  docker compose down -v
   ```
 
 ## Cleanup
