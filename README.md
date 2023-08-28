@@ -356,41 +356,25 @@ After building the Docker native image and running it successfully, we have some
 - when tried to run one of script files (`simulation-rest.txt` or `simulation-rsocket.txt`) there is the following exception
   ```
   movie-client-shell> script /app/resources/simulation-rest.txt
-  Failed to convert from type [java.util.ArrayList<?>] to type [java.io.File] for value '[/app/resources/simulation-rest.txt]'
+  java.lang.NullPointerException
   Details of the error have been omitted. You can use the stacktrace command to print the full stacktrace.
   movie-client-shell> stacktrace
-  org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.util.ArrayList<?>] to type [java.io.File] for value '[/app/resources/simulation-rest.txt]'
-  	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:47)
-  	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:192)
-  	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:175)
-  	at org.springframework.shell.command.CommandParser$DefaultCommandParser.convertOptionType(CommandParser.java:294)
-  	at org.springframework.shell.command.CommandParser$DefaultCommandParser.lambda$parse$4(CommandParser.java:274)
-  	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
-  	at java.base@17.0.6/java.util.ArrayList.forEach(ArrayList.java:1511)
-  	at java.base@17.0.6/java.util.stream.SortedOps$RefSortingSink.end(SortedOps.java:395)
-  	at java.base@17.0.6/java.util.stream.Sink$ChainedReference.end(Sink.java:258)
-  	at java.base@17.0.6/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510)
-  	at java.base@17.0.6/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
-  	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
-  	at java.base@17.0.6/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
-  	at java.base@17.0.6/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
-  	at java.base@17.0.6/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
-  	at org.springframework.shell.command.CommandParser$DefaultCommandParser.parse(CommandParser.java:249)
-  	at org.springframework.shell.command.CommandExecution$DefaultCommandExecution.evaluate(CommandExecution.java:126)
-  	at org.springframework.shell.Shell.evaluate(Shell.java:246)
-  	at org.springframework.shell.Shell.run(Shell.java:158)
+  java.lang.NullPointerException
+  	at java.base@17.0.7/java.io.FileInputStream.<init>(FileInputStream.java:149)
+  	at java.base@17.0.7/java.io.FileReader.<init>(FileReader.java:75)
+  	at org.springframework.shell.standard.commands.Script.script(Script.java:60)
+  	at java.base@17.0.7/java.lang.reflect.Method.invoke(Method.java:568)
+  	at org.springframework.shell.command.invocation.InvocableShellMethod.doInvoke(InvocableShellMethod.java:306)
+  	at org.springframework.shell.command.invocation.InvocableShellMethod.invoke(InvocableShellMethod.java:232)
+  	at org.springframework.shell.command.CommandExecution$DefaultCommandExecution.evaluate(CommandExecution.java:227)
+  	at org.springframework.shell.Shell.evaluate(Shell.java:248)
+  	at org.springframework.shell.Shell.run(Shell.java:159)
   	at org.springframework.shell.jline.InteractiveShellRunner.run(InteractiveShellRunner.java:73)
   	at org.springframework.shell.DefaultShellApplicationRunner.run(DefaultShellApplicationRunner.java:65)
-  	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:760)
-  	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:750)
-  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:317)
-  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304)
-  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293)
-  	at com.ivanfranchin.movieclientshell.MovieClientShellApplication.main(MovieClientShellApplication.java:10)
-  Caused by: org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.lang.String] to type [java.io.File]
-  	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:322)
-  	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:195)
-  	at org.springframework.core.convert.support.CollectionToObjectConverter.convert(CollectionToObjectConverter.java:66)
-  	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:41)
-  	... 26 more
+  	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:762)
+  	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:319)
+  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+  	at com.ivanfranchin.movieclientshell.MovieClientShellApplication.main(MovieClientShellApplication.java:10)  
   ```
