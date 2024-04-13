@@ -83,15 +83,10 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 ## Start Environment
 
-- Open a terminal and inside `springboot-rsocket-webflux-aop` root folder run
-  ```
-  docker compose up -d
-  ```
-
-- Wait for `mongodb` Docker container to be up and running. To check it, run
-  ```
-  docker compose ps
-  ```
+Open a terminal and inside `springboot-rsocket-webflux-aop` root folder run
+```
+docker compose up -d
+```
 
 ## Running applications with Maven
 
