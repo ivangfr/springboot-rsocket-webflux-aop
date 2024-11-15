@@ -290,11 +290,11 @@ docker compose up -d
   - If you are running the applications as Docker containers
     - REST
       ```
-      script /app/resources/simulation-rest.txt
+      script /workspace/BOOT-INF/classes/simulation-rest.txt
       ```
     - RSocket
       ```
-      script /app/resources/simulation-rsocket.txt
+      script /workspace/BOOT-INF/classes/simulation-rsocket.txt
       ```
 
 ## Useful Commands
