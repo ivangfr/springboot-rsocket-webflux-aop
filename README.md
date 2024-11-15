@@ -83,7 +83,7 @@ The GIF below shows a user running some commands in `movie-client-shell`, termin
 
 ## Prerequisites
 
-- [`Java 17+`](https://www.oracle.com/java/technologies/downloads/#java17)
+- [`Java 21+`](https://www.oracle.com/java/technologies/downloads/#java21)
 - [`Docker`](https://www.docker.com/)
 
 ## Start Environment
