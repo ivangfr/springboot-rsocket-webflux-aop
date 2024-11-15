@@ -1,10 +1,15 @@
 # springboot-rsocket-webflux-aop
 
-The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java applications: `movie-server`, `movie-client-shell` and `movie-client-ui`. As storage, it's used the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/). All the streaming of movie events and the logging are handling by AOP (Aspect Oriented Programming).
+The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/index.html) Java applications: `movie-server`, `movie-client-shell` and `movie-client-ui`. As storage, it's used the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/). All the streaming of movie events and the logging are handling by AOP (Aspect Oriented Programming).
 
 ## Proof-of-Concepts & Articles
 
 On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-Concepts (PoCs) and articles. You can easily search for the technology you are interested in by using the filter. Who knows, perhaps I have already implemented a PoC or written an article about what you are looking for.
+
+## Additional Readings
+
+- \[**Medium**\] [**RSocket Crypto Server Tutorial**](https://medium.com/@ivangfr/list/rsocket-crypto-server-tutorial-651560b2159a)
+- \[**Medium**\] [**Implementing and Securing a Spring Boot RSocket App using Keycloak for IAM**](https://itnext.io/implementing-and-securing-a-spring-boot-rsocket-app-with-keycloak-5a6c74bf453d)
 
 ## Project Diagram
 
