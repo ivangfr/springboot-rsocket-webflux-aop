@@ -24,7 +24,6 @@ public class MovieClientUiController {
         simpMessagingTemplate.convertAndSend("/topic/movies/updates", movieUpdateMessage);
     }
 
-    // Native app doesn't open the UI without this explicit definition
     @GetMapping(value = "/")
     public String index() {
         return "index";

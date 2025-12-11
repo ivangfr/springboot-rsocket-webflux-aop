@@ -1,6 +1,6 @@
 # springboot-rsocket-webflux-aop
 
-The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. For it, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/index.html) Java applications: `movie-server`, `movie-client-shell` and `movie-client-ui`. As storage, it's used the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/). All the streaming of movie events and the logging are handling by AOP (Aspect Oriented Programming).
+The goal of this project is to play with [`RSocket`](https://rsocket.io/) protocol. To do this, we will implement three [`Spring Boot`](https://docs.spring.io/spring-boot/index.html) Java applications: `movie-server`, `movie-client-shell` and `movie-client-ui`. For storage, the reactive NoSQL database [`MongoDB`](https://www.mongodb.com/) is used. All streaming of movie events and logging is handled by AOP (Aspect Oriented Programming).
 
 ## Proof-of-Concepts & Articles
 
@@ -24,72 +24,72 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
   `movie-server` has the following profiles:
   
   - `default`
-     - start REST API on port `8080` and uses `HTTP`
+     - starts REST API on port `8080` and uses `HTTP`.
      
   - `rsocket-tcp`
-     - start REST API on port `8080` and uses `HTTP`
-     - start RSocket on port `7000` and uses `TCP`
+     - starts REST API on port `8080` and uses `HTTP`.
+     - start RSocket on port `7000` and uses `TCP`.
      
   - `rsocket-websocket`
-     - start REST API on port `8080` and uses `HTTP`
-     - start RSocket with mapping-path `/rsocket` and uses `WebSocket`
+     - starts REST API on port `8080` and uses `HTTP`.
+     - starts RSocket with mapping-path `/rsocket` and uses `WebSocket`.
 
 - ### movie-client-shell
 
   `Spring Boot` Shell Java application that has a couple of commands to interact with `movie-server`.
   
-  The picture below show those commands
+  The picture below shows those commands:
   
   ![movie-client-shell](documentation/movie-client-shell.jpeg)
 
   It has the following profiles:
   
   - `default`
-     - start shell with enabled commands to call `movie-server` REST API endpoints using `HTTP`
+     - starts shell with enabled commands to call `movie-server` REST API endpoints using `HTTP`.
      
   - `rsocket-tcp`
-     - start shell with enabled commands to call `movie-server` REST API endpoints using `HTTP`
-     - start shell with enabled commands to call `movie-server` RSocket routes using `TCP`
+     - starts shell with enabled commands to call `movie-server` REST API endpoints using `HTTP`.
+     - starts shell with enabled commands to call `movie-server` RSocket routes using `TCP`.
      
   - `rsocket-websocket`
-     - start shell with enabled commands to call `movie-server` REST API endpoints using `HTTP`
-     - start shell with enabled commands to call `movie-server` RSocket routes using `WebSocket`
+     - starts shell with enabled commands to call `movie-server` REST API endpoints using `HTTP`.
+     - starts shell with enabled commands to call `movie-server` RSocket routes using `WebSocket`.
 
 - ### movie-client-ui
 
-  `Spring Boot` Java Web application that uses [`Thymeleaf`](https://www.thymeleaf.org/) and `Websocket` to show at real-time all the events generated when movies are added, deleted, liked and disliked.
+  `Spring Boot` Java Web application that uses [`Thymeleaf`](https://www.thymeleaf.org/) and `WebSocket` to show at real-time all the events generated when movies are added, deleted, liked and disliked.
 
   ![movie-client-ui](documentation/movie-client-ui.jpeg)
 
   `movie-client-ui` has the following profiles:
   
   - `default`
-     - start REST API on port `8081` and uses `HTTP`
-     - does not connect to `movie-server` through `RSocket`; does not receive movie events;
+     - starts REST API on port `8081` and uses `HTTP`.
+     - does not connect to `movie-server` through `RSocket`; does not receive movie events.
      
   - `rsocket-tcp`
-     - start REST API on port `8080` and uses `HTTP`
-     - connects to `movie-server` through `RSocket`using `TCP`; receives movie events;
+     - starts REST API on port `8080` and uses `HTTP`.
+     - connects to `movie-server` through `RSocket` using `TCP`; receives movie events.
      
   - `rsocket-websocket`
-     - start REST API on port `8080` and uses `HTTP`
-     - connects to `movie-server` through `RSocket`using `WebSocket`; receives movie events;
+     - starts REST API on port `8080` and uses `HTTP`.
+     - connects to `movie-server` through `RSocket` using `WebSocket`; receives movie events.
 
 ## Demo
 
-The GIF below shows a user running some commands in `movie-client-shell`, terminal on the right. In the right-top terminal is running `movie-server` and in the right-bottom, `movie-client-ui`. On the background, there's a browser where movie events are displayed. 
+The GIF below shows a user running some commands in `movie-client-shell` (terminal on the right). The top-right terminal is running `movie-server`, and the bottom-right terminal runs `movie-client-ui`. In the background, a browser displays the movie events. 
 
 ![demo](documentation/demo.gif)
 
 ## Prerequisites
 
-- [`Java 21+`](https://www.oracle.com/java/technologies/downloads/#java21)
-- [`Docker`](https://www.docker.com/)
+- [`Java 21`](https://www.oracle.com/java/technologies/downloads/#java21) or higher.
+- A containerization tool (e.g., [`Docker`](https://www.docker.com), [`Podman`](https://podman.io), etc.)
 
 ## Start Environment
 
-Open a terminal and inside `springboot-rsocket-webflux-aop` root folder run
-```
+Open a terminal and inside the `springboot-rsocket-webflux-aop` root folder run:
+```bash
 docker compose up -d
 ```
 
@@ -97,7 +97,7 @@ docker compose up -d
 
 - **movie-server**
 
-  Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run one of the following profile's command
+  Open a new terminal and, inside the `springboot-rsocket-webflux-aop` root folder, run one of the following profile's command:
   
   | Profile           | Command                                                                                           |
   |-------------------|---------------------------------------------------------------------------------------------------|
@@ -107,8 +107,8 @@ docker compose up -d
   
 - **movie-client-shell**
 
-  Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the following command to build the executable jar file
-  ```
+  Open a new terminal and, inside the `springboot-rsocket-webflux-aop` root folder, run the following command to build the executable jar file:
+  ```bash
   ./mvnw clean package --projects movie-client-shell -DskipTests
   ```
 
@@ -122,7 +122,7 @@ docker compose up -d
 
 - **movie-client-ui**
 
-  Open a new terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the profile's command you picked to run `movie-server`
+  Open a new terminal and, inside the `springboot-rsocket-webflux-aop` root folder, run the profile's command you picked to run `movie-server`:
   
   | Profile           | Command                                                                                              |
   |-------------------|------------------------------------------------------------------------------------------------------|
@@ -134,16 +134,11 @@ docker compose up -d
 
 - ### Build Docker images
 
-  - In a terminal, make sure you are in `springboot-rsocket-webflux-aop` root folder
-  - Run the following script to build the Docker images
-    - JVM
-      ```
-      ./docker-build.sh
-      ```
-    - Native (it's not working yet, see [Issues](#issues))
-      ```
-      ./docker-build.sh native
-      ```
+  - In a terminal, make sure you are in the `springboot-rsocket-webflux-aop` root folder.
+  - Run the following script to build the Docker images:
+    ```bash
+    ./build-docker-image.sh
+    ```
 
 - ### Environment variables
 
@@ -168,18 +163,18 @@ docker compose up -d
 
 - ### Start Docker containers
 
-  - In a terminal, make sure you are inside `springboot-rsocket-webflux-aop` root folder
-  - Run following command
+  - In a terminal, make sure you are inside the `springboot-rsocket-webflux-aop` root folder.
+  - Run following command:
     - rsocket-tcp
-      ```
+      ```bash
       ./start-server-and-ui.sh rsocket-tcp && ./start-shell.sh rsocket-tcp
       ```
     - rsocket-websocket
-      ```
+      ```bash
       ./start-server-and-ui.sh rsocket-websocket && ./start-shell.sh rsocket-websocket
       ```
     - default
-      ```
+      ```bash
       ./start-server-and-ui.sh && ./start-shell.sh
       ```
 
@@ -192,108 +187,108 @@ docker compose up -d
 | movie-server    | REST     | HTTP      | http://localhost:8080       |
 | movie-client-ui | Website  | HTTP      | http://localhost:8081       |
 
-> **Note**: you can see the clients connected to `movie-server` by calling the `info` actuator endpoint
-> ```
+> **Note**: you can see the clients connected to `movie-server` by calling the `info` actuator endpoint.
+> ```bash
 > curl -i localhost:8080/actuator/info
 > ```
 
 ## Playing Around with movie-client-shell commands
 
-> **Note**: to run the commands below, you must start `movie-server` and `movie-client-shell` with `rsocket-tcp` or `rsocket-websocket` profiles
+> **Note**: to run the commands below, you must start `movie-server` and `movie-client-shell` with `rsocket-tcp` or `rsocket-websocket` profiles.
 
 - Open a browser and access `movie-client-ui` at http://localhost:8081
 
-- Go to `movie-client-shell` terminal
+- Go to `movie-client-shell` terminal.
 
-- Add a movie using RSocket (`Request-Response`) 
-  ```
+- Add a movie using RSocket (`Request-Response`):
+  ```bash
   add-movie-rsocket --imdb aaa --title "RSocketland"
   ```
   
-  It should return
-  ```
+  It should return:
+  ```json
   {"imdb":"aaa","title":"RSocketland","lastModifiedDate":"2020-07-20T12:43:39.857248","likes":0,"dislikes":0}
   ```
   
-  A `+` action should be displayed in `movie-client-ui`
+  A `+` action should be displayed in `movie-client-ui`.
   
-- Add a movie using REST
-  ```
+- Add a movie using REST:
+  ```bash
   add-movie-rest --imdb bbb --title "I, REST"
   ```
   
-  It should return
-  ```
+  It should return:
+  ```json
   {"imdb":"bbb","title":"I, REST","lastModifiedDate":"2020-07-20T12:44:13.266657","likes":0,"dislikes":0}
   ```
   
-  A `+` action should be displayed in `movie-client-ui`
+  A `+` action should be displayed in `movie-client-ui`.
   
-- Send a like to `RSocketland` movie using RSocket (`Fire-And-Forget`)
-  ```
+- Send a like to `RSocketland` movie using RSocket (`Fire-And-Forget`):
+  ```bash
   like-movie-rsocket --imdb aaa
   ```
   
-  It should return
-  ```
+  It should return:
+  ```text
   Like submitted
   ```
   
-  A `thumbs-up` action should be displayed in `movie-client-ui`
+  A `thumbs-up` action should be displayed in `movie-client-ui`.
 
-- Get all movies using RSocket (`Request-Stream`)
-  ```
+- Get all movies using RSocket (`Request-Stream`):
+  ```bash
   get-movies-rsocket
   ```
   
-  It should return
-  ```
+  It should return:
+  ```text
   {"imdb":"aaa","title":"RSocketland","lastModifiedDate":"2020-07-20T12:56:34.565","likes":1,"dislikes":0}
   {"imdb":"bbb","title":"I, REST","lastModifiedDate":"2020-07-20T12:56:26.846","likes":0,"dislikes":0}
   ```
   
-- Select movies using RSocket (`Channel`)
-  ```
+- Select movies using RSocket (`Channel`).
+  ```bash
   select-movies-rsocket --imdbs aaa,bbb
   ```
   
-  It should return
-  ```
-  | IMBD: aaa        | TITLE: RSocketland                    | LIKES: 1     | DISLIKES: 0     |
-  | IMBD: bbb        | TITLE: I, REST                        | LIKES: 0     | DISLIKES: 0     |
+  It should return:
+  ```text
+  | IMDB: aaa        | TITLE: RSocketland                    | LIKES: 1     | DISLIKES: 0     |
+  | IMDB: bbb        | TITLE: I, REST                        | LIKES: 0     | DISLIKES: 0     |
   ```
   
-- Delete movie `RSocketland` using RSocket (`Request-Response`) and movie `I, REST` using REST
-  ```
+- Delete movie `RSocketland` using RSocket (`Request-Response`) and movie `I, REST` using REST.
+  ```bash
   delete-movie-rsocket --imdb aaa
   delete-movie-rest --imdb bbb
   ```
   
-  It should return, as response, the IMDB of the movies
+  It should return, as response, the IMDB of the movies.
   
-  A `-` actions should be displayed in `movie-client-ui`
+  A `-` actions should be displayed in `movie-client-ui`.
   
 - **Simulation**
 
-  There are two scripts that contain some commands to add, retrieve, like, dislikes and delete movies. One uses REST and another RSocket to communicate with `movie-server`. At the end of the script execution, it's shown the `Execution Time` in `milliseconds`.
+  There are two scripts that contain some commands to add, retrieve, like, dislikes and delete movies. One uses REST, and the other uses RSocket to communicate with `movie-server`. At the end of the script execution, it's shown the `Execution Time` in `milliseconds`.
   
-  - If you are running the applications with Maven
+  - If you are running the applications with Maven:
     - REST
-      ```
+      ```bash
       script ../src/main/resources/simulation-rest.txt
       ```
     - RSocket
-      ```
+      ```bash
       script ../src/main/resources/simulation-rsocket.txt
       ```
 
-  - If you are running the applications as Docker containers
+  - If you are running the applications as Docker containers:
     - REST
-      ```
+      ```bash
       script /workspace/BOOT-INF/classes/simulation-rest.txt
       ```
     - RSocket
-      ```
+      ```bash
       script /workspace/BOOT-INF/classes/simulation-rsocket.txt
       ```
 
@@ -301,31 +296,31 @@ docker compose up -d
 
 - **MongoDB**
 
-  Find all movies
-  ```
+  Find all movies:
+  ```bash
   docker exec -it mongodb mongosh moviedb
   db.movies.find()
   ```
-  > Type `exit` to get out of `MongoDB` shell
+  > Type `exit` to get out of `MongoDB` shell.
 
 ## Shutdown
 
-- To stop `movie-client-shell`, go to the terminal where it is running and type `exit`
-- To stop `movie-server` and `movie-client-ui`
-  - If you start them with Maven, go to the terminals where they are running and press `Ctrl+C`
-  - If you start them as Docker containers, go to a terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the following command
-    ```
+- To stop `movie-client-shell`, go to the terminal where it is running and type `exit`.
+- To stop `movie-server` and `movie-client-ui`:
+  - If you start them with Maven, go to the terminals where they are running and press `Ctrl+C`.
+  - If you start them as Docker containers, go to a terminal and, inside the `springboot-rsocket-webflux-aop` root folder, run the following command:
+    ```bash
     ./stop-server-and-ui.sh
     ```
-- To stop and remove docker compose `mongodb` container, network and volumes, go to a terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the command below
-  ```
+- To stop and remove docker compose `mongodb` container, network and volumes, go to a terminal and, inside the `springboot-rsocket-webflux-aop` root folder, run the command below:
+  ```bash
   docker compose down -v
   ```
 
 ## Cleanup
 
-To remove the Docker images created by this project, go to a terminal and, inside `springboot-rsocket-webflux-aop` root folder, run the script below
-```
+To remove the Docker images created by this project, go to a terminal and, inside the `springboot-rsocket-webflux-aop` root folder, run the script below:
+```bash
 ./remove-docker-images.sh
 ```
 
@@ -337,44 +332,4 @@ To remove the Docker images created by this project, go to a terminal and, insid
 
 ## Issues
 
-#### movie-server
-
-Docker native image builds and starts up successfully. However, it doesn't accept connections even using JVM version of `movie-client-ui` and `movie-client-shell`.  
-
-#### movie-client-ui
-
-After building and starting the Docker native image successfully, the app looks fine (i.e., we can open the page, websocket is connected, etc). However, it is not connecting to `movie-server`.
-
-#### movie-client-shell
-
-After building the Docker native image and running it successfully, we have some problems such as
-- there is the following WARN
-  ```
-  Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
-  ```
-- the autocomplete is not working;
-- when tried to run one of script files (`simulation-rest.txt` or `simulation-rsocket.txt`) there is the following exception
-  ```
-  movie-client-shell> script /app/resources/simulation-rest.txt
-  java.lang.NullPointerException
-  Details of the error have been omitted. You can use the stacktrace command to print the full stacktrace.
-  movie-client-shell> stacktrace
-  java.lang.NullPointerException
-  	at java.base@17.0.7/java.io.FileInputStream.<init>(FileInputStream.java:149)
-  	at java.base@17.0.7/java.io.FileReader.<init>(FileReader.java:75)
-  	at org.springframework.shell.standard.commands.Script.script(Script.java:60)
-  	at java.base@17.0.7/java.lang.reflect.Method.invoke(Method.java:568)
-  	at org.springframework.shell.command.invocation.InvocableShellMethod.doInvoke(InvocableShellMethod.java:306)
-  	at org.springframework.shell.command.invocation.InvocableShellMethod.invoke(InvocableShellMethod.java:232)
-  	at org.springframework.shell.command.CommandExecution$DefaultCommandExecution.evaluate(CommandExecution.java:227)
-  	at org.springframework.shell.Shell.evaluate(Shell.java:248)
-  	at org.springframework.shell.Shell.run(Shell.java:159)
-  	at org.springframework.shell.jline.InteractiveShellRunner.run(InteractiveShellRunner.java:73)
-  	at org.springframework.shell.DefaultShellApplicationRunner.run(DefaultShellApplicationRunner.java:65)
-  	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:762)
-  	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
-  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:319)
-  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
-  	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
-  	at com.ivanfranchin.movieclientshell.MovieClientShellApplication.main(MovieClientShellApplication.java:10)  
-  ```
+The autocomplete is not working when we run `movie-client-shell` as Docker container.

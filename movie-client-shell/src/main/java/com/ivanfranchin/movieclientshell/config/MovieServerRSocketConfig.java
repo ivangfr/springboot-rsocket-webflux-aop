@@ -29,21 +29,21 @@ public class MovieServerRSocketConfig {
 
     @Profile("rsocket-tcp")
     @Bean
-    public RSocketRequester rSocketRequesterTcp(RSocketRequester.Builder rSocketRequesterBuilder,
-                                                RSocketStrategies rSocketStrategies,
-                                                @Value("${movie-server.host}") String host,
-                                                @Value("${movie-server.rsocket.port}") int rSocketPort) {
+    RSocketRequester rSocketRequesterTcp(RSocketRequester.Builder rSocketRequesterBuilder,
+                                         RSocketStrategies rSocketStrategies,
+                                         @Value("${movie-server.host}") String host,
+                                         @Value("${movie-server.rsocket.port}") int rSocketPort) {
         return createRSocketRequester(rSocketRequesterBuilder, rSocketStrategies,
                 TcpClientTransport.create(host, rSocketPort));
     }
 
     @Profile("rsocket-websocket")
     @Bean
-    public RSocketRequester rSocketRequesterWebSocket(RSocketRequester.Builder rSocketRequesterBuilder,
-                                                      RSocketStrategies rSocketStrategies,
-                                                      @Value("${movie-server.host}") String host,
-                                                      @Value("${movie-server.rest.port}") int restPort,
-                                                      @Value("${movie-server.rsocket.mapping-path}") String rSocketMappingPath) {
+    RSocketRequester rSocketRequesterWebSocket(RSocketRequester.Builder rSocketRequesterBuilder,
+                                               RSocketStrategies rSocketStrategies,
+                                               @Value("${movie-server.host}") String host,
+                                               @Value("${movie-server.rest.port}") int restPort,
+                                               @Value("${movie-server.rsocket.mapping-path}") String rSocketMappingPath) {
         URI uri = URI.create(String.format("ws://%s:%s%s", host, restPort, rSocketMappingPath));
         return createRSocketRequester(rSocketRequesterBuilder, rSocketStrategies,
                 WebsocketClientTransport.create(uri));

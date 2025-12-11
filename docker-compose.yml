@@ -1,10 +1,10 @@
 services:
 
   mongodb:
-    image: mongo:7.0.14
-    container_name: mongodb
-    restart: unless-stopped
+    image: 'mongo:8.2.2'
+    container_name: 'mongodb'
+    restart: 'unless-stopped'
     ports:
-      - "27017:27017"
+      - '27017:27017'
     healthcheck:
       test: "echo 'db.stats().ok' | mongosh localhost:27017/moviedb --quiet"

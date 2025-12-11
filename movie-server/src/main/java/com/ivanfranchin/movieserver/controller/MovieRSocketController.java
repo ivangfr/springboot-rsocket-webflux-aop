@@ -83,7 +83,7 @@ public class MovieRSocketController {
                                      @Header(CONTENT_TYPE) String contentType) {
         return imdbs.flatMap(movieService::getMovie)
                 .map(movie ->
-                        String.format("| IMBD: %-10s | TITLE: %-30s | LIKES: %-5s | DISLIKES: %-5s |",
+                        String.format("| IMDB: %-10s | TITLE: %-30s | LIKES: %-5s | DISLIKES: %-5s |",
                                 movie.getImdb(), movie.getTitle(), movie.getLikes(), movie.getDislikes()));
     }
 

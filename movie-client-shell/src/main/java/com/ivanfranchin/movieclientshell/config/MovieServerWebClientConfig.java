@@ -9,8 +9,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class MovieServerWebClientConfig {
 
     @Bean
-    public WebClient webClient(@Value("${movie-server.host:localhost}") String movieServerHost,
-                               @Value("${movie-server.rest.port:8080}") int movieServerRestPort) {
+    WebClient webClient(@Value("${movie-server.host:localhost}") String movieServerHost,
+                        @Value("${movie-server.rest.port:8080}") int movieServerRestPort) {
         return WebClient.create(String.format("http://%s:%s/api/movies", movieServerHost, movieServerRestPort));
     }
 }
