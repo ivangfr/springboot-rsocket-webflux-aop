@@ -2,8 +2,8 @@ package com.ivanfranchin.movieserver.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ivanfranchin.movieserver.model.Movie;
-import com.ivanfranchin.movieserver.controller.dto.MovieUpdateMessage;
+import com.ivanfranchin.movieserver.movie.model.Movie;
+import com.ivanfranchin.movieserver.movie.dto.MovieUpdateMessage;
 import io.rsocket.RSocket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class EventStreamerAspect {
         return clients.keySet();
     }
 
-    @Around("execution(public * com.ivanfranchin.movieserver.controller.MovieRSocketController.clientRegistration(..)) &&" +
+    @Around("execution(public * com.ivanfranchin.movieserver.movie.MovieRSocketController.clientRegistration(..)) &&" +
             "args(rSocketRequester, clientId, ..)")
     public Object clientRegistration(ProceedingJoinPoint pjp, RSocketRequester rSocketRequester, String clientId) throws Throwable {
         long t = System.currentTimeMillis();
@@ -60,7 +60,7 @@ public class EventStreamerAspect {
         return retVal;
     }
 
-    @AfterReturning(pointcut = "execution(public * com.ivanfranchin.movieserver.service.MovieService.addMovie(..))", returning = "movieMono")
+    @AfterReturning(pointcut = "execution(public * com.ivanfranchin.movieserver.movie.MovieService.addMovie(..))", returning = "movieMono")
     public void streamAddedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
@@ -69,7 +69,7 @@ public class EventStreamerAspect {
                         .subscribe()));
     }
 
-    @AfterReturning(pointcut = "execution(public * com.ivanfranchin.movieserver.service.MovieService.deleteMovie(..))", returning = "movieMono")
+    @AfterReturning(pointcut = "execution(public * com.ivanfranchin.movieserver.movie.MovieService.deleteMovie(..))", returning = "movieMono")
     public void streamDeletedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
@@ -78,7 +78,7 @@ public class EventStreamerAspect {
                         .subscribe()));
     }
 
-    @AfterReturning(pointcut = "execution(public * com.ivanfranchin.movieserver.service.MovieService.likeMovie(..))", returning = "movieMono")
+    @AfterReturning(pointcut = "execution(public * com.ivanfranchin.movieserver.movie.MovieService.likeMovie(..))", returning = "movieMono")
     public void streamLikedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
@@ -87,7 +87,7 @@ public class EventStreamerAspect {
                         .subscribe()));
     }
 
-    @AfterReturning(pointcut = "execution(public * com.ivanfranchin.movieserver.service.MovieService.dislikeMovie(..))", returning = "movieMono")
+    @AfterReturning(pointcut = "execution(public * com.ivanfranchin.movieserver.movie.MovieService.dislikeMovie(..))", returning = "movieMono")
     public void streamDislikedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
