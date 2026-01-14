@@ -1,6 +1,5 @@
 package com.ivanfranchin.movieclientshell.movie;
 
-import com.google.gson.Gson;
 import com.ivanfranchin.movieclientshell.movie.dto.AddMovieRequest;
 import com.ivanfranchin.movieclientshell.movie.dto.MovieResponse;
 import org.springframework.http.MediaType;
@@ -8,6 +7,7 @@ import org.springframework.shell.core.command.annotation.Command;
 import org.springframework.shell.core.command.annotation.Option;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 public class MovieServerRestCommands {
 
     private final WebClient webClient;
-    private final Gson gson;
+    private final ObjectMapper objectMapper;
 
-    public MovieServerRestCommands(WebClient webClient, Gson gson) {
+    public MovieServerRestCommands(WebClient webClient, ObjectMapper objectMapper) {
         this.webClient = webClient;
-        this.gson = gson;
+        this.objectMapper = objectMapper;
     }
 
     @Command(name = "get-movies-rest", description = "Get all movies using REST", group = "movie-server REST commands")
@@ -30,7 +30,7 @@ public class MovieServerRestCommands {
             List<String> movies = webClient.get()
                     .retrieve()
                     .bodyToFlux(MovieResponse.class)
-                    .map(gson::toJson)
+                    .map(objectMapper::writeValueAsString)
                     .collectList()
                     .block();
             return Objects.requireNonNull(movies).stream()
@@ -47,7 +47,7 @@ public class MovieServerRestCommands {
                     .uri(uriBuilder -> uriBuilder.path("/{imdb}").build(imdb))
                     .retrieve()
                     .bodyToMono(MovieResponse.class)
-                    .map(gson::toJson)
+                    .map(objectMapper::writeValueAsString)
                     .block();
         } catch (Exception e) {
             return "Error: " + e.getMessage();
@@ -64,7 +64,7 @@ public class MovieServerRestCommands {
                     .bodyValue(addMovieRequest)
                     .retrieve()
                     .bodyToMono(MovieResponse.class)
-                    .map(gson::toJson)
+                    .map(objectMapper::writeValueAsString)
                     .block();
         } catch (Exception e) {
             return "Error: " + e.getMessage();
@@ -78,7 +78,7 @@ public class MovieServerRestCommands {
                     .uri(uriBuilder -> uriBuilder.path("/{imdb}").build(imdb))
                     .retrieve()
                     .bodyToMono(String.class)
-                    .map(gson::toJson)
+                    .map(objectMapper::writeValueAsString)
                     .block();
         } catch (Exception e) {
             return "Error: " + e.getMessage();

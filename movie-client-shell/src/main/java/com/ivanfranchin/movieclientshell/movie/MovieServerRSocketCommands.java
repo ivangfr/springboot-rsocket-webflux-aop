@@ -1,6 +1,5 @@
 package com.ivanfranchin.movieclientshell.movie;
 
-import com.google.gson.Gson;
 import com.ivanfranchin.movieclientshell.movie.dto.AddMovieRequest;
 import com.ivanfranchin.movieclientshell.movie.dto.MovieResponse;
 import com.ivanfranchin.movieclientshell.movie.exception.MovieNotFoundException;
@@ -11,6 +10,7 @@ import org.springframework.shell.core.command.annotation.Option;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,18 +21,18 @@ import java.util.stream.Collectors;
 public class MovieServerRSocketCommands {
 
     private final RSocketRequester rSocketRequester;
-    private final Gson gson;
+    private final ObjectMapper objectMapper;
 
-    public MovieServerRSocketCommands(RSocketRequester rSocketRequester, Gson gson) {
+    public MovieServerRSocketCommands(RSocketRequester rSocketRequester, ObjectMapper objectMapper) {
         this.rSocketRequester = rSocketRequester;
-        this.gson = gson;
+        this.objectMapper = objectMapper;
     }
 
     @Command(name = "get-movies-rsocket", description = "Get all movies using RSocket", group = "movie-server RSocket commands")
     public String getMoviesRSocket() {
         List<String> movies = rSocketRequester.route("get.movies")
                 .retrieveFlux(MovieResponse.class)
-                .map(gson::toJson)
+                .map(objectMapper::writeValueAsString)
                 .collectList()
                 .block();
         return Objects.requireNonNull(movies).stream()
@@ -45,7 +45,7 @@ public class MovieServerRSocketCommands {
             return rSocketRequester.route("get.movie")
                     .data(imdb)
                     .retrieveMono(MovieResponse.class)
-                    .map(gson::toJson)
+                    .map(objectMapper::writeValueAsString)
                     .switchIfEmpty(Mono.error(new MovieNotFoundException(imdb)))
                     .block();
         } catch (Exception e) {
@@ -60,7 +60,7 @@ public class MovieServerRSocketCommands {
         return rSocketRequester.route("add.movie")
                 .data(addMovieRequest)
                 .retrieveMono(MovieResponse.class)
-                .map(gson::toJson)
+                .map(objectMapper::writeValueAsString)
                 .block();
     }
 
@@ -70,7 +70,7 @@ public class MovieServerRSocketCommands {
             return rSocketRequester.route("delete.movie")
                     .data(imdb)
                     .retrieveMono(String.class)
-                    .map(gson::toJson)
+                    .map(objectMapper::writeValueAsString)
                     .switchIfEmpty(Mono.error(new MovieNotFoundException(imdb)))
                     .block();
         } catch (Exception e) {
