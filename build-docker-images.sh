@@ -13,6 +13,17 @@ MOVIE_CLIENT_SHELL_DOCKER_IMAGE_NAME="${DOCKER_IMAGE_PREFIX}/${MOVIE_CLIENT_SHEL
 
 SKIP_TESTS="true"
 
-./mvnw clean spring-boot:build-image --projects "$MOVIE_SERVER_APP_NAME" -DskipTests="$SKIP_TESTS" -Dspring-boot.build-image.imageName="$MOVIE_SERVER_DOCKER_IMAGE_NAME"
-./mvnw clean spring-boot:build-image --projects "$MOVIE_CLIENT_UI_APP_NAME" -DskipTests="$SKIP_TESTS" -Dspring-boot.build-image.imageName="$MOVIE_CLIENT_UI_DOCKER_IMAGE_NAME"
-./mvnw clean spring-boot:build-image --projects "$MOVIE_CLIENT_SHELL_APP_NAME" -DskipTests="$SKIP_TESTS" -Dspring-boot.build-image.imageName="$MOVIE_CLIENT_SHELL_DOCKER_IMAGE_NAME"
+./mvnw clean spring-boot:build-image \
+  --projects "$MOVIE_SERVER_APP_NAME" \
+  -DskipTests="$SKIP_TESTS" \
+  -Dspring-boot.build-image.imageName="$MOVIE_SERVER_DOCKER_IMAGE_NAME"
+
+./mvnw clean spring-boot:build-image \
+  --projects "$MOVIE_CLIENT_UI_APP_NAME" \
+  -DskipTests="$SKIP_TESTS" \
+  -Dspring-boot.build-image.imageName="$MOVIE_CLIENT_UI_DOCKER_IMAGE_NAME"
+
+./mvnw clean spring-boot:build-image \
+  --projects "$MOVIE_CLIENT_SHELL_APP_NAME" \
+  -DskipTests="$SKIP_TESTS" \
+  -Dspring-boot.build-image.imageName="$MOVIE_CLIENT_SHELL_DOCKER_IMAGE_NAME"
