@@ -1,9 +1,7 @@
 package com.ivanfranchin.movieserver.aspect;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ivanfranchin.movieserver.movie.model.Movie;
 import com.ivanfranchin.movieserver.movie.dto.MovieUpdateMessage;
+import com.ivanfranchin.movieserver.movie.model.Movie;
 import io.rsocket.RSocket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +12,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
+import tools.jackson.databind.ObjectMapper;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -64,7 +63,7 @@ public class EventStreamerAspect {
     public void streamAddedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
-                        .data(new MovieUpdateMessage(MovieUpdateMessage.Action.ADDED, LocalDateTime.now(), m.getImdb(), toJson(m)))
+                        .data(new MovieUpdateMessage(MovieUpdateMessage.Action.ADDED, LocalDateTime.now(), m.getImdb(), objectMapper.writeValueAsString(m)))
                         .send()
                         .subscribe()));
     }
@@ -73,7 +72,7 @@ public class EventStreamerAspect {
     public void streamDeletedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
-                        .data(new MovieUpdateMessage(MovieUpdateMessage.Action.DELETED, LocalDateTime.now(), m.getImdb(), toJson(m)))
+                        .data(new MovieUpdateMessage(MovieUpdateMessage.Action.DELETED, LocalDateTime.now(), m.getImdb(), objectMapper.writeValueAsString(m)))
                         .send()
                         .subscribe()));
     }
@@ -82,7 +81,7 @@ public class EventStreamerAspect {
     public void streamLikedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
-                        .data(new MovieUpdateMessage(MovieUpdateMessage.Action.LIKED, LocalDateTime.now(), m.getImdb(), toJson(m)))
+                        .data(new MovieUpdateMessage(MovieUpdateMessage.Action.LIKED, LocalDateTime.now(), m.getImdb(), objectMapper.writeValueAsString(m)))
                         .send()
                         .subscribe()));
     }
@@ -91,17 +90,9 @@ public class EventStreamerAspect {
     public void streamDislikedMovieEvent(Mono<Movie> movieMono) {
         movieMono.subscribe(m -> clients.values()
                 .forEach(rSocketRequester -> rSocketRequester.route(MOVIES_UPDATES_ROUTE)
-                        .data(new MovieUpdateMessage(MovieUpdateMessage.Action.DISLIKED, LocalDateTime.now(), m.getImdb(), toJson(m)))
+                        .data(new MovieUpdateMessage(MovieUpdateMessage.Action.DISLIKED, LocalDateTime.now(), m.getImdb(), objectMapper.writeValueAsString(m)))
                         .send()
                         .subscribe()));
-    }
-
-    private String toJson(Movie movie) {
-        try {
-            return objectMapper.writeValueAsString(movie);
-        } catch (JsonProcessingException e) {
-            return movie.toString();
-        }
     }
 
     private static final String MOVIES_UPDATES_ROUTE = "movies.updates";

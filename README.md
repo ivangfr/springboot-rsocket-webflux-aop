@@ -83,7 +83,7 @@ The GIF below shows a user running some commands in `movie-client-shell` (termin
 
 ## Prerequisites
 
-- [`Java 21`](https://www.oracle.com/java/technologies/downloads/#java21) or higher.
+- [`Java 25`](https://www.oracle.com/java/technologies/downloads/#java25) or higher.
 - A containerization tool (e.g., [`Docker`](https://www.docker.com), [`Podman`](https://podman.io), etc.)
 
 ## Start Environment
@@ -107,18 +107,13 @@ docker compose up -d
   
 - **movie-client-shell**
 
-  Open a new terminal and, inside the `springboot-rsocket-webflux-aop` root folder, run the following command to build the executable jar file:
-  ```bash
-  ./mvnw clean package --projects movie-client-shell -DskipTests
-  ```
-
-  To start `movie-client-shell`, run the profile's command you picked to run `movie-server`
+  Open a new terminal and, inside the `springboot-rsocket-webflux-aop` root folder, run the profile's command you picked to run `movie-server`:
   
-  | Profile           | Commands                                                                                                    |
-  |-------------------|-------------------------------------------------------------------------------------------------------------|
-  | rsocket-tcp       | export SPRING_PROFILES_ACTIVE=rsocket-tcp && ./movie-client-shell/target/movie-client-shell-1.0.0.jar       |
-  | rsocket-websocket | export SPRING_PROFILES_ACTIVE=rsocket-websocket && ./movie-client-shell/target/movie-client-shell-1.0.0.jar |
-  | default           | export SPRING_PROFILES_ACTIVE=default && ./movie-client-shell/target/movie-client-shell-1.0.0.jar           |
+  | Profile           | Commands                                                                                                      |
+  |-------------------|---------------------------------------------------------------------------------------------------------------|
+  | rsocket-tcp       | export SPRING_PROFILES_ACTIVE=rsocket-tcp && ./mvnw clean spring-boot:run --projects movie-client-shell       |
+  | rsocket-websocket | export SPRING_PROFILES_ACTIVE=rsocket-websocket && ./mvnw clean spring-boot:run --projects movie-client-shell |
+  | default           | export SPRING_PROFILES_ACTIVE=default && ./mvnw clean spring-boot:run --projects movie-client-shell           |
 
 - **movie-client-ui**
 
@@ -137,7 +132,7 @@ docker compose up -d
   - In a terminal, make sure you are in the `springboot-rsocket-webflux-aop` root folder.
   - Run the following script to build the Docker images:
     ```bash
-    ./build-docker-image.sh
+    ./build-docker-images.sh
     ```
 
 - ### Environment variables

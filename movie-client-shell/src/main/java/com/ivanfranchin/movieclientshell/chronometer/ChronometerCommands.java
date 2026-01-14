@@ -1,19 +1,19 @@
 package com.ivanfranchin.movieclientshell.chronometer;
 
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.core.command.annotation.Command;
+import org.springframework.stereotype.Component;
 
-@ShellComponent
+@Component
 public class ChronometerCommands {
 
     private static final Chronometer chronometer = new Chronometer();
 
-    @ShellMethod("Start chronometer")
+    @Command(name = "start-chronometer", group = "Controller commands")
     public void startChronometer() {
         chronometer.start();
     }
 
-    @ShellMethod("Stop chronometer")
+    @Command(name = "stop-chronometer", group = "Controller commands")
     public String stopChronometer() {
         return chronometer.stop();
     }

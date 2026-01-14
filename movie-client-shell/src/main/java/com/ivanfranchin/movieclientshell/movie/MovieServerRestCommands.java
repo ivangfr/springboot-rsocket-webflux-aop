@@ -4,17 +4,16 @@ import com.google.gson.Gson;
 import com.ivanfranchin.movieclientshell.movie.dto.AddMovieRequest;
 import com.ivanfranchin.movieclientshell.movie.dto.MovieResponse;
 import org.springframework.http.MediaType;
-import org.springframework.shell.standard.ShellCommandGroup;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.core.command.annotation.Command;
+import org.springframework.shell.core.command.annotation.Option;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@ShellComponent
-@ShellCommandGroup("movie-server REST commands")
+@Component
 public class MovieServerRestCommands {
 
     private final WebClient webClient;
@@ -25,67 +24,92 @@ public class MovieServerRestCommands {
         this.gson = gson;
     }
 
-    @ShellMethod(key = "get-movies-rest", value = "Get all movies using REST")
+    @Command(name = "get-movies-rest", description = "Get all movies using REST", group = "movie-server REST commands")
     public String getMoviesRest() {
-        List<String> movies = webClient.get()
-                .retrieve()
-                .bodyToFlux(MovieResponse.class)
-                .map(gson::toJson)
-                .collectList()
-                .block();
-        return Objects.requireNonNull(movies).stream()
-                .collect(Collectors.joining(System.lineSeparator()));
+        try {
+            List<String> movies = webClient.get()
+                    .retrieve()
+                    .bodyToFlux(MovieResponse.class)
+                    .map(gson::toJson)
+                    .collectList()
+                    .block();
+            return Objects.requireNonNull(movies).stream()
+                    .collect(Collectors.joining(System.lineSeparator()));
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
-    @ShellMethod(key = "get-movie-rest", value = "Get movie by imdb using REST")
-    public String getMovieRest(String imdb) {
-        return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/{imdb}").build(imdb))
-                .retrieve()
-                .bodyToMono(MovieResponse.class)
-                .map(gson::toJson)
-                .block();
+    @Command(name = "get-movie-rest", description = "Get movie by imdb using REST", group = "movie-server REST commands")
+    public String getMovieRest(@Option(longName = "imdb", required = true) String imdb) {
+        try {
+            return webClient.get()
+                    .uri(uriBuilder -> uriBuilder.path("/{imdb}").build(imdb))
+                    .retrieve()
+                    .bodyToMono(MovieResponse.class)
+                    .map(gson::toJson)
+                    .block();
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
-    @ShellMethod(key = "add-movie-rest", value = "Add movie using REST")
-    public String addMovieRest(String imdb, String title) {
-        AddMovieRequest addMovieRequest = new AddMovieRequest(imdb, title);
-        return webClient.post()
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(addMovieRequest)
-                .retrieve()
-                .bodyToMono(MovieResponse.class)
-                .map(gson::toJson)
-                .block();
+    @Command(name = "add-movie-rest", description = "Add movie using REST", group = "movie-server REST commands")
+    public String addMovieRest(@Option(longName = "imdb", required = true) String imdb,
+                               @Option(longName = "title", required = true) String title) {
+        try {
+            AddMovieRequest addMovieRequest = new AddMovieRequest(imdb, title);
+            return webClient.post()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .bodyValue(addMovieRequest)
+                    .retrieve()
+                    .bodyToMono(MovieResponse.class)
+                    .map(gson::toJson)
+                    .block();
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
-    @ShellMethod(key = "delete-movie-rest", value = "Delete movie using REST")
-    public String deleteMovieRest(String imdb) {
-        return webClient.delete()
-                .uri(uriBuilder -> uriBuilder.path("/{imdb}").build(imdb))
-                .retrieve()
-                .bodyToMono(String.class)
-                .map(gson::toJson)
-                .block();
+    @Command(name = "delete-movie-rest", description = "Delete movie using REST", group = "movie-server REST commands")
+    public String deleteMovieRest(@Option(longName = "imdb", required = true) String imdb) {
+        try {
+            return webClient.delete()
+                    .uri(uriBuilder -> uriBuilder.path("/{imdb}").build(imdb))
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .map(gson::toJson)
+                    .block();
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
-    @ShellMethod(key = "like-movie-rest", value = "Like movie using REST")
-    public String likeMovieRest(String imdb) {
-        webClient.patch()
-                .uri(uriBuilder -> uriBuilder.path("/{imdb}/like").build(imdb))
-                .retrieve()
-                .bodyToMono(Void.class)
-                .block();
-        return "Like submitted";
+    @Command(name = "like-movie-rest", description = "Like movie using REST", group = "movie-server REST commands")
+    public String likeMovieRest(@Option(longName = "imdb", required = true) String imdb) {
+        try {
+            webClient.patch()
+                    .uri(uriBuilder -> uriBuilder.path("/{imdb}/like").build(imdb))
+                    .retrieve()
+                    .bodyToMono(Void.class)
+                    .block();
+            return "Like submitted";
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
-    @ShellMethod(key = "dislike-movie-rest", value = "Dislike movie using REST")
-    public String dislikeMovieRest(String imdb) {
-        webClient.patch()
-                .uri(uriBuilder -> uriBuilder.path("/{imdb}/dislike").build(imdb))
-                .retrieve()
-                .bodyToMono(Void.class)
-                .block();
-        return "Dislike submitted";
+    @Command(name = "dislike-movie-rest", description = "Dislike movie using REST", group = "movie-server REST commands")
+    public String dislikeMovieRest(@Option(longName = "imdb", required = true) String imdb) {
+        try {
+            webClient.patch()
+                    .uri(uriBuilder -> uriBuilder.path("/{imdb}/dislike").build(imdb))
+                    .retrieve()
+                    .bodyToMono(Void.class)
+                    .block();
+            return "Dislike submitted";
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 }

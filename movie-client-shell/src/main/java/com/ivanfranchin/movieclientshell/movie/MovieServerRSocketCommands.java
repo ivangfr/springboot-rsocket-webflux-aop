@@ -6,9 +6,9 @@ import com.ivanfranchin.movieclientshell.movie.dto.MovieResponse;
 import com.ivanfranchin.movieclientshell.movie.exception.MovieNotFoundException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.rsocket.RSocketRequester;
-import org.springframework.shell.standard.ShellCommandGroup;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.core.command.annotation.Command;
+import org.springframework.shell.core.command.annotation.Option;
+import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -17,8 +17,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Profile("rsocket-tcp || rsocket-websocket")
-@ShellComponent
-@ShellCommandGroup("movie-server RSocket commands")
+@Component
 public class MovieServerRSocketCommands {
 
     private final RSocketRequester rSocketRequester;
@@ -29,7 +28,7 @@ public class MovieServerRSocketCommands {
         this.gson = gson;
     }
 
-    @ShellMethod(key = "get-movies-rsocket", value = "Get all movies using RSocket")
+    @Command(name = "get-movies-rsocket", description = "Get all movies using RSocket", group = "movie-server RSocket commands")
     public String getMoviesRSocket() {
         List<String> movies = rSocketRequester.route("get.movies")
                 .retrieveFlux(MovieResponse.class)
@@ -40,18 +39,23 @@ public class MovieServerRSocketCommands {
                 .collect(Collectors.joining(System.lineSeparator()));
     }
 
-    @ShellMethod(key = "get-movie-rsocket", value = "Get movie by imdb using RSocket")
-    public String getMovieRSocket(String imdb) {
-        return rSocketRequester.route("get.movie")
-                .data(imdb)
-                .retrieveMono(MovieResponse.class)
-                .map(gson::toJson)
-                .switchIfEmpty(Mono.error(new MovieNotFoundException(imdb)))
-                .block();
+    @Command(name = "get-movie-rsocket", description = "Get movie by imdb using RSocket", group = "movie-server RSocket commands")
+    public String getMovieRSocket(@Option(longName = "imdb", required = true) String imdb) {
+        try {
+            return rSocketRequester.route("get.movie")
+                    .data(imdb)
+                    .retrieveMono(MovieResponse.class)
+                    .map(gson::toJson)
+                    .switchIfEmpty(Mono.error(new MovieNotFoundException(imdb)))
+                    .block();
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
-    @ShellMethod(key = "add-movie-rsocket", value = "Add movie using RSocket")
-    public String addMovieRSocket(String imdb, String title) {
+    @Command(name = "add-movie-rsocket", description = "Add movie using RSocket", group = "movie-server RSocket commands")
+    public String addMovieRSocket(@Option(longName = "imdb", required = true) String imdb,
+                                  @Option(longName = "title", required = true) String title) {
         AddMovieRequest addMovieRequest = new AddMovieRequest(imdb, title);
         return rSocketRequester.route("add.movie")
                 .data(addMovieRequest)
@@ -60,18 +64,22 @@ public class MovieServerRSocketCommands {
                 .block();
     }
 
-    @ShellMethod(key = "delete-movie-rsocket", value = "Delete movie using RSocket")
-    public String deleteMovieRSocket(String imdb) {
-        return rSocketRequester.route("delete.movie")
-                .data(imdb)
-                .retrieveMono(String.class)
-                .map(gson::toJson)
-                .switchIfEmpty(Mono.error(new MovieNotFoundException(imdb)))
-                .block();
+    @Command(name = "delete-movie-rsocket", description = "Delete movie using RSocket", group = "movie-server RSocket commands")
+    public String deleteMovieRSocket(@Option(longName = "imdb", required = true) String imdb) {
+        try {
+            return rSocketRequester.route("delete.movie")
+                    .data(imdb)
+                    .retrieveMono(String.class)
+                    .map(gson::toJson)
+                    .switchIfEmpty(Mono.error(new MovieNotFoundException(imdb)))
+                    .block();
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
-    @ShellMethod(key = "like-movie-rsocket", value = "Like movie using RSocket")
-    public String likeMovieRSocket(String imdb) {
+    @Command(name = "like-movie-rsocket", description = "Like movie using RSocket", group = "movie-server RSocket commands")
+    public String likeMovieRSocket(@Option(longName = "imdb", required = true) String imdb) {
         rSocketRequester.route("like.movie")
                 .data(imdb)
                 .send()
@@ -79,8 +87,8 @@ public class MovieServerRSocketCommands {
         return "Like submitted";
     }
 
-    @ShellMethod(key = "dislike-movie-rsocket", value = "Dislike movie using RSocket")
-    public String dislikeMovieRSocket(String imdb) {
+    @Command(name = "dislike-movie-rsocket", description = "Dislike movie using RSocket", group = "movie-server RSocket commands")
+    public String dislikeMovieRSocket(@Option(longName = "imdb", required = true) String imdb) {
         rSocketRequester.route("dislike.movie")
                 .data(imdb)
                 .send()
@@ -88,8 +96,8 @@ public class MovieServerRSocketCommands {
         return "Dislike submitted";
     }
 
-    @ShellMethod(key = "select-movies-rsocket", value = "Select some movies using RSocket. Inform the imdb of the movies separated by comma")
-    public String selectMoviesRSocket(String imdbs) {
+    @Command(name = "select-movies-rsocket", description = "Select some movies using RSocket. Inform the imdb of the movies separated by comma", group = "movie-server RSocket commands")
+    public String selectMoviesRSocket(@Option(longName = "imdbs", required = true) String imdbs) {
         Flux<String> imdbFlux = Flux.just(imdbs.split(","));
         List<String> movies = rSocketRequester.route("select.movies")
                 .data(imdbFlux)
